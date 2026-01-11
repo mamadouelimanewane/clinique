@@ -10,7 +10,7 @@ import {
     MessageSquare,
     Users,
     Settings,
-    Record,
+    Disc,
     StopCircle,
     FileText,
     Download,
@@ -193,7 +193,7 @@ export function TelemedicineConference() {
                                 isRecording ? "bg-rose-600 hover:bg-rose-700 text-white" : "bg-slate-900 hover:bg-indigo-600 text-white"
                             )}
                         >
-                            {isRecording ? <StopCircle className="h-5 w-5 mr-3" /> : <Record className="h-5 w-5 mr-3" />}
+                            {isRecording ? <StopCircle className="h-5 w-5 mr-3" /> : <Disc className="h-5 w-5 mr-3" />}
                             {isRecording ? "Arrêter l'Enregistrement" : "Lancer Enregistrement IA"}
                         </Button>
                         <Button className="h-16 w-16 rounded-[25px] bg-white border border-slate-100 shadow-xl text-slate-900">
