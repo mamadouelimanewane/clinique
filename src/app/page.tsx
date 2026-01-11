@@ -1,7 +1,5 @@
+import PublicWebsite from "@/components/public/site-web";
+
 export default function Home() {
-  return (
-    <div className="flex items-center justify-center min-h-screen">
-      <h1 className="text-4xl font-bold">SIGHI - Clinique Aéré Lao</h1>
-    </div>
-  );
+  return <PublicWebsite />;
 }
