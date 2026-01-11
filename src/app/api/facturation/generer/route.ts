@@ -42,7 +42,7 @@ export async function POST(req: Request) {
         })
 
         // Gestion part assurance
-        const tauxCouverture = consultation.patient.tauxCouverture || 0
+        const tauxCouverture = Number(consultation.patient.tauxCouverture) || 0
         const partAssurance = Math.round(totalBrut * (tauxCouverture / 100))
         const partPatient = totalBrut - partAssurance
 
