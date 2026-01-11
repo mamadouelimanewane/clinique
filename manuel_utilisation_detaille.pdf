@@ -1,0 +1,1494 @@
+%PDF-1.3
+%ºß¬à
+3 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Contents 4 0 R
+>>
+endobj
+4 0 obj
+<<
+/Length 834
+>>
+stream
+0.5670000000000001 w
+0 G
+0.06 0.09 0.16 rg
+0. 841.8899999999999864 595.2755905511811534 -841.8897637795276978 re
+f
+BT
+/F2 30 Tf
+34.5 TL
+1. g
+56.6929133858267775 558.42543307086612 Td
+(MANUEL D'OPÉRATION) Tj
+ET
+BT
+/F2 30 Tf
+34.5 TL
+1. g
+56.6929133858267775 515.9057480314959321 Td
+(TECHNIQUE SIGHI 2026) Tj
+ET
+BT
+/F2 14 Tf
+16.0999999999999979 TL
+0.31 0.275 0.898 rg
+56.6929133858267775 473.3860629921259147 Td
+(Analyse exhaustive des interfaces et workflows) Tj
+ET
+1. G
+2.8346456692913389 w
+56.6929133858267775 445.0396062992125508 m
+283.4645669291338663 445.0396062992125508 l
+S
+BT
+/F2 10 Tf
+11.5 TL
+0.588 g
+56.6929133858267775 104.882125984251843 Td
+(Clinique Dentaire Aere Lao - Département IT) Tj
+ET
+BT
+/F2 10 Tf
+11.5 TL
+0.588 g
+56.6929133858267775 90.7088976377951894 Td
+(Document de référence interne - Diffusion contrôlée) Tj
+ET
+endstream
+endobj
+5 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Contents 6 0 R
+>>
+endobj
+6 0 obj
+<<
+/Length 3592
+>>
+stream
+2.8346456692913389 w
+1. G
+0.97 0.98 0.99 rg
+0. 841.8899999999999864 595.2755905511811534 -56.6929133858267775 re
+f
+BT
+/F2 10 Tf
+11.5 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 805.0396062992125508 Td
+(GROUPE : GÉNÉRAL) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.059 0.09 0.165 rg
+524.4094488188976584 805.0396062992125508 Td
+(Page 2 / 18) Tj
+ET
+BT
+/F2 18 Tf
+20.6999999999999993 TL
+0.31 0.275 0.898 rg
+42.5196850393700814 742.6774015748030706 Td
+(1.1 TABLEAU DE BORD) Tj
+ET
+BT
+/F3 10 Tf
+11.5 TL
+0.392 g
+42.5196850393700814 720.0002362204724022 Td
+(Vue d'ensemble décisionnelle synchronisée en temps réel avec tous les services.) Tj
+ET
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 691.6537795275589815 Td
+(> Élément : Filtre Période) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.196 g
+56.6929133858267775 674.6459055118109518 Td
+(Action : L'utilisateur sélectionne une plage de dates via le sélecteur calendrier en haut à droite.) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.31 0.275 0.898 rg
+56.6929133858267775 660.4726771653542983 Td
+(Résultat Attendu : Le système recalcule instantanément tous les KPIs financiers et statistiques de fréquentation) Tj
+T* (pour la période choisie.) Tj
+ET
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 609.4490551181102092 Td
+(> Élément : Carte 'Chiffre d'Affaires') Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.196 g
+56.6929133858267775 592.4411811023621794 Td
+(Action : Cliquer sur le montant global affiché en grand.) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.31 0.275 0.898 rg
+56.6929133858267775 578.2679527559055259 Td
+(Résultat Attendu : L'interface bascule vers le module comptable avec un filtrage pré-activé sur les recettes de la) Tj
+T* (journée.) Tj
+ET
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 527.2443307086614368 Td
+(> Élément : Widget 'Alertes Maintenance') Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.196 g
+56.6929133858267775 510.2364566929133503 Td
+(Action : L'utilisateur clique sur une icône de clé rouge clignotante.) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.31 0.275 0.898 rg
+56.6929133858267775 496.0632283464566399 Td
+(Résultat Attendu : Une fenêtre contextuelle liste les équipements critiques nécessitant une intervention) Tj
+T* (immédiate \(GMAO\).) Tj
+ET
+BT
+/F2 18 Tf
+20.6999999999999993 TL
+0.31 0.275 0.898 rg
+42.5196850393700814 445.0396062992125508 Td
+(1.2 RENDEZ-VOUS) Tj
+ET
+BT
+/F3 10 Tf
+11.5 TL
+0.392 g
+42.5196850393700814 422.3624409448818255 Td
+(Gestionnaire d'agenda centralisé pour la coordination des praticiens.) Tj
+ET
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 394.0159842519684616 Td
+(> Élément : Bouton 'Nouveau RDV') Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.196 g
+56.6929133858267775 377.0081102362204319 Td
+(Action : Cliquer sur le bouton indigo 'Plus' situé dans l'entête de la page agenda.) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.31 0.275 0.898 rg
+56.6929133858267775 362.8348818897637216 Td
+(Résultat Attendu : Un formulaire s'ouvre permettant de lier un patient existant ou d'en créer un nouveau tout en) Tj
+T* (réservant un créneau horaire.) Tj
+ET
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 311.8112598425195756 Td
+(> Élément : Champ 'Recherche Patient') Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.196 g
+56.6929133858267775 294.8033858267715459 Td
+(Action : Saisir les premières lettres du nom du patient dans la barre de recherche interne.) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.31 0.275 0.898 rg
+56.6929133858267775 280.6301574803148924 Td
+(Résultat Attendu : Une liste de suggestions filtrée apparaît, permettant de sélectionner le dossier sans recharger) Tj
+T* (la page.) Tj
+ET
+endstream
+endobj
+7 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Contents 8 0 R
+>>
+endobj
+8 0 obj
+<<
+/Length 4458
+>>
+stream
+2.8346456692913389 w
+1. G
+0.97 0.98 0.99 rg
+0. 841.8899999999999864 595.2755905511811534 -56.6929133858267775 re
+f
+BT
+/F2 10 Tf
+11.5 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 805.0396062992125508 Td
+(GROUPE : MÉDICAL & CLINIQUE) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.059 0.09 0.165 rg
+524.4094488188976584 805.0396062992125508 Td
+(Page 3 / 18) Tj
+ET
+BT
+/F2 18 Tf
+20.6999999999999993 TL
+0.31 0.275 0.898 rg
+42.5196850393700814 742.6774015748030706 Td
+(2.1 PATIENTS \(CRM MÉDICAL\)) Tj
+ET
+BT
+/F3 10 Tf
+11.5 TL
+0.392 g
+42.5196850393700814 720.0002362204724022 Td
+(Base de données centrale des fiches signalétiques et historiques.) Tj
+ET
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 691.6537795275589815 Td
+(> Élément : Bouton 'Importer Dossier') Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.196 g
+56.6929133858267775 674.6459055118109518 Td
+(Action : Cliquer sur l'icône de téléchargement dans la liste des patients.) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.31 0.275 0.898 rg
+56.6929133858267775 660.4726771653542983 Td
+(Résultat Attendu : Permet de charger des documents externes \(PDF/Images\) qui seront automatiquement) Tj
+T* (indexés par l'IA dans la fiche patient.) Tj
+ET
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 609.4490551181102092 Td
+(> Élément : Badge 'Statut Assurance') Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.196 g
+56.6929133858267775 592.4411811023621794 Td
+(Action : Survoler ou cliquer sur le badge de couleur \(Vert/Rouge\) à côté du nom du patient.) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.31 0.275 0.898 rg
+56.6929133858267775 578.2679527559055259 Td
+(Résultat Attendu : Affiche le détail des droits ouverts et le taux de prise en charge conventionné pour ce patient) Tj
+T* (spécifique.) Tj
+ET
+BT
+/F2 18 Tf
+20.6999999999999993 TL
+0.31 0.275 0.898 rg
+42.5196850393700814 527.2443307086614368 Td
+(2.2 CONSULTATIONS) Tj
+ET
+BT
+/F3 10 Tf
+11.5 TL
+0.392 g
+42.5196850393700814 504.5671653543306547 Td
+(Moteur d'examen clinique et de prescription intelligente.) Tj
+ET
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 476.2207086614172908 Td
+(> Élément : Champ 'Observations Cliniques') Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.196 g
+56.6929133858267775 459.2128346456692611 Td
+(Action : Le médecin saisit le texte ou utilise la dictée vocale dans l'éditeur riche.) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.31 0.275 0.898 rg
+56.6929133858267775 445.0396062992125508 Td
+(Résultat Attendu : Le système analyse les mots-clés en temps réel pour suggérer des codes de diagnostic) Tj
+T* (\(CIM-10\) correspondants.) Tj
+ET
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 394.0159842519684616 Td
+(> Élément : Bouton 'Générer Ordonnance') Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.196 g
+56.6929133858267775 377.0081102362204319 Td
+(Action : Cliquer sur le bouton 'Finaliser & Imprimer' après avoir sélectionné les médicaments.) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.31 0.275 0.898 rg
+56.6929133858267775 362.8348818897637216 Td
+(Résultat Attendu : Produit un document PDF sécurisé avec QR Code de vérification et déduit automatiquement) Tj
+T* (les stocks de la pharmacie.) Tj
+ET
+BT
+/F2 18 Tf
+20.6999999999999993 TL
+0.31 0.275 0.898 rg
+42.5196850393700814 311.8112598425195756 Td
+(2.3 HOSPITALISATION) Tj
+ET
+BT
+/F3 10 Tf
+11.5 TL
+0.392 g
+42.5196850393700814 289.1340944881889072 Td
+(Gestion des flux de séjours et des unités de soins.) Tj
+ET
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 260.7876377952754865 Td
+(> Élément : Bouton 'Changer Chambre') Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.196 g
+56.6929133858267775 243.7797637795274568 Td
+(Action : Utiliser le glisser-déposer \(Drag & Drop\) d'un dossier patient vers un autre lit libre.) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.31 0.275 0.898 rg
+56.6929133858267775 229.6065354330708033 Td
+(Résultat Attendu : Met à jour instantanément le tableau d'occupation et notifie l'équipe de bio-nettoyage du) Tj
+T* (mouvement effectué.) Tj
+ET
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 178.5829133858267141 Td
+(> Élément : Champ 'Régime Alimentaire') Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.196 g
+56.6929133858267775 161.5750393700786844 Td
+(Action : Sélectionner les restrictions dans le menu déroulant de la fiche de suivi.) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.31 0.275 0.898 rg
+56.6929133858267775 147.4018110236219172 Td
+(Résultat Attendu : Génère une alerte automatique pour le service de restauration interne lors de la préparation) Tj
+T* (des repas.) Tj
+ET
+endstream
+endobj
+9 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Contents 10 0 R
+>>
+endobj
+10 0 obj
+<<
+/Length 4352
+>>
+stream
+2.8346456692913389 w
+1. G
+0.97 0.98 0.99 rg
+0. 841.8899999999999864 595.2755905511811534 -56.6929133858267775 re
+f
+BT
+/F2 10 Tf
+11.5 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 805.0396062992125508 Td
+(GROUPE : PLATEAU TECHNIQUE) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.059 0.09 0.165 rg
+524.4094488188976584 805.0396062992125508 Td
+(Page 4 / 18) Tj
+ET
+BT
+/F2 18 Tf
+20.6999999999999993 TL
+0.31 0.275 0.898 rg
+42.5196850393700814 742.6774015748030706 Td
+(2.4 SANTÉ PRÉDICTIVE \(AI\)) Tj
+ET
+BT
+/F3 10 Tf
+11.5 TL
+0.392 g
+42.5196850393700814 720.0002362204724022 Td
+(Intelligence augmentée pour le diagnostic et le pronostic.) Tj
+ET
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 691.6537795275589815 Td
+(> Élément : Bouton 'Lancer Analyse IA') Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.196 g
+56.6929133858267775 674.6459055118109518 Td
+(Action : Cliquer sur le bouton 'Zap' dans l'onglet Santé Prédictive.) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.31 0.275 0.898 rg
+56.6929133858267775 660.4726771653542983 Td
+(Résultat Attendu : L'IA analyse les tissus et imageries pour détecter les signaux faibles et calculer les scores de) Tj
+T* (risque complication.) Tj
+ET
+BT
+/F2 18 Tf
+20.6999999999999993 TL
+0.31 0.275 0.898 rg
+42.5196850393700814 609.4490551181102092 Td
+(2.5 INNOVATION LAB) Tj
+ET
+BT
+/F3 10 Tf
+11.5 TL
+0.392 g
+42.5196850393700814 586.7718897637794271 Td
+(Recherche et développement sur les technologies futures.) Tj
+ET
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 558.42543307086612 Td
+(> Élément : Bouton 'Holo-Twin') Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.196 g
+56.6929133858267775 541.4175590551180903 Td
+(Action : Cliquer sur 'Générer' dans le module Bio-Twin.) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.31 0.275 0.898 rg
+56.6929133858267775 527.2443307086614368 Td
+(Résultat Attendu : Crée une simulation 3D prédictive de la dentition du patient, visible en réalité augmentée.) Tj
+ET
+BT
+/F2 18 Tf
+20.6999999999999993 TL
+0.31 0.275 0.898 rg
+42.5196850393700814 490.3939370078739444 Td
+(2.6 SMART CONCIERGE) Tj
+ET
+BT
+/F3 10 Tf
+11.5 TL
+0.392 g
+42.5196850393700814 467.716771653543276 Td
+(Gestion de l'accueil VIP et services hôteliers de luxe.) Tj
+ET
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 439.3703149606298552 Td
+(> Élément : Bouton 'Action VIP') Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.196 g
+56.6929133858267775 422.3624409448818255 Td
+(Action : Le concierge clique sur l'icône de flèche pour coordonner l'arrivée d'un client Gold.) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.31 0.275 0.898 rg
+56.6929133858267775 408.1892125984251152 Td
+(Résultat Attendu : Génère un protocole d'accueil personnalisé incluant la préparation de la suite et l'assistant) Tj
+T* (personnel dédié.) Tj
+ET
+BT
+/F2 18 Tf
+20.6999999999999993 TL
+0.31 0.275 0.898 rg
+42.5196850393700814 357.1655905511810261 Td
+(5.5 CYBER FORTRESS \(AVANCÉ\)) Tj
+ET
+BT
+/F3 10 Tf
+11.5 TL
+0.392 g
+42.5196850393700814 334.4884251968503008 Td
+(Sécurité périmétrique et résilience.) Tj
+ET
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 306.1419685039369369 Td
+(> Élément : Bouton 'Stress Test Live') Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.196 g
+56.6929133858267775 289.1340944881889072 Td
+(Action : Cliquer sur 'Stress Test' dans le Cyber Fortress.) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.31 0.275 0.898 rg
+56.6929133858267775 274.9608661417322537 Td
+(Résultat Attendu : Lance une simulation de panne totale \(DRP Drill\) pour démontrer la bascule automatique vers) Tj
+T* (le cluster de secours en moins de 30ms.) Tj
+ET
+BT
+/F2 18 Tf
+20.6999999999999993 TL
+0.31 0.275 0.898 rg
+42.5196850393700814 223.9372440944881646 Td
+(3.1 LABORATOIRE) Tj
+ET
+BT
+/F3 10 Tf
+11.5 TL
+0.392 g
+42.5196850393700814 201.2600787401573825 Td
+(Centre de traitement des analyses biologiques et biochimiques.) Tj
+ET
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 172.9136220472439618 Td
+(> Élément : Bouton 'Valider Résultat') Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.196 g
+56.6929133858267775 155.9057480314959321 Td
+(Action : Le technicien clique sur l'icône de coche après vérification des valeurs saisies par l'automate.) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.31 0.275 0.898 rg
+56.6929133858267775 141.7325196850392786 Td
+(Résultat Attendu : Le compte-rendu est signé numériquement et transmis au dossier médical du patient ainsi) Tj
+T* (qu'à son WhatsApp personnel.) Tj
+ET
+endstream
+endobj
+11 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Contents 12 0 R
+>>
+endobj
+12 0 obj
+<<
+/Length 4823
+>>
+stream
+2.8346456692913389 w
+1. G
+0.97 0.98 0.99 rg
+0. 841.8899999999999864 595.2755905511811534 -56.6929133858267775 re
+f
+BT
+/F2 10 Tf
+11.5 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 805.0396062992125508 Td
+(TABLEAU 'WORKLIST') Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.059 0.09 0.165 rg
+524.4094488188976584 805.0396062992125508 Td
+(Page 5 / 18) Tj
+ET
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 742.6774015748030706 Td
+(> Élément : Tableau 'Worklist') Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.196 g
+56.6929133858267775 725.6695275590550409 Td
+(Action : Consulter la liste des prélèvements en attente classés par urgence.) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.31 0.275 0.898 rg
+56.6929133858267775 711.4962992125983874 Td
+(Résultat Attendu : Permet d'organiser le flux de travail des automates en priorité selon le critère 'Urgent') Tj
+T* (sélectionné à l'accueil.) Tj
+ET
+BT
+/F2 18 Tf
+20.6999999999999993 TL
+0.31 0.275 0.898 rg
+42.5196850393700814 660.4726771653542983 Td
+(3.2 IMAGERIE) Tj
+ET
+BT
+/F3 10 Tf
+11.5 TL
+0.392 g
+42.5196850393700814 637.7955118110235162 Td
+(Visualiseur DICOM intégré et assistant IA diagnostic.) Tj
+ET
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 609.4490551181102092 Td
+(> Élément : Bouton 'Vision IA') Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.196 g
+56.6929133858267775 592.4411811023621794 Td
+(Action : Cliquer sur l'icône de cerveau située sur la barre d'outils du visualiseur radio.) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.31 0.275 0.898 rg
+56.6929133858267775 578.2679527559055259 Td
+(Résultat Attendu : L'intelligence artificielle scanne le cliché et applique des filtres de détection automatique sur) Tj
+T* (les zones suspectes.) Tj
+ET
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 527.2443307086614368 Td
+(> Élément : Champ 'Annotation 3D') Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.196 g
+56.6929133858267775 510.2364566929133503 Td
+(Action : L'utilisateur sélectionne une zone sur l'image et ajoute une note.) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.31 0.275 0.898 rg
+56.6929133858267775 496.0632283464566399 Td
+(Résultat Attendu : Crée un marqueur spatial permanent dans le dossier d'imagerie, visible par le chirurgien lors) Tj
+T* (de l'intervention.) Tj
+ET
+BT
+/F2 18 Tf
+20.6999999999999993 TL
+0.31 0.275 0.898 rg
+42.5196850393700814 445.0396062992125508 Td
+(4.1 COMMUNICATION & CONFÉRENCE) Tj
+ET
+BT
+/F3 10 Tf
+11.5 TL
+0.392 g
+42.5196850393700814 422.3624409448818255 Td
+(Gestion des flux omnicanaux et de la télé-expertise.) Tj
+ET
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 394.0159842519684616 Td
+(> Élément : Bouton 'Record IA') Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.196 g
+56.6929133858267775 377.0081102362204319 Td
+(Action : Cliquer sur le bouton 'Lancer Enregistrement' pendant une conférence.) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.31 0.275 0.898 rg
+56.6929133858267775 362.8348818897637216 Td
+(Résultat Attendu : Le système démarre la capture vidéo et l'analyse sémantique en temps réel pour le futur PV.) Tj
+ET
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 325.9844881889763428 Td
+(> Élément : Onglet 'Actes/PV') Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.196 g
+56.6929133858267775 308.9766141732283131 Td
+(Action : Cliquer sur l'onglet 'Actes/PV' dans la barre latérale droite de la conférence.) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.31 0.275 0.898 rg
+56.6929133858267775 294.8033858267715459 Td
+(Résultat Attendu : Permet de visualiser en direct les points de décision identifiés par l'IA et de télécharger le PV) Tj
+T* (final.) Tj
+ET
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 243.7797637795274568 Td
+(> Élément : Expérience Patient) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.196 g
+56.6929133858267775 226.7718897637794271 Td
+(Action : Consultation de la page 'Patient Satisfaction Center'.) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.31 0.275 0.898 rg
+56.6929133858267775 212.5986614173227736 Td
+(Résultat Attendu : Affichage du score NPS global \(9.4/10\) et analyse sémantique IA des feedbacks pour) Tj
+T* (améliorer la qualité de service.) Tj
+ET
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 161.5750393700786844 Td
+(> Élément : Auto-Lien WhatsApp) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.196 g
+56.6929133858267775 144.5671653543306547 Td
+(Action : Validation d'un rendez-vous 'Téléconsultation' à l'accueil.) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.31 0.275 0.898 rg
+56.6929133858267775 130.3939370078738875 Td
+(Résultat Attendu : Le moteur de comms génère un lien unique et l'envoie instantanément au patient via) Tj
+T* (WhatsApp Business.) Tj
+ET
+BT
+/F2 18 Tf
+20.6999999999999993 TL
+0.31 0.275 0.898 rg
+42.5196850393700814 79.3703149606297984 Td
+(4.2 COMPTABILITÉ) Tj
+ET
+BT
+/F3 10 Tf
+11.5 TL
+0.392 g
+42.5196850393700814 56.69314960629913 Td
+(Cœur financier pour le suivi des écritures et de la trésorerie.) Tj
+ET
+endstream
+endobj
+13 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Contents 14 0 R
+>>
+endobj
+14 0 obj
+<<
+/Length 2775
+>>
+stream
+2.8346456692913389 w
+1. G
+0.97 0.98 0.99 rg
+0. 841.8899999999999864 595.2755905511811534 -56.6929133858267775 re
+f
+BT
+/F2 10 Tf
+11.5 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 805.0396062992125508 Td
+(BOUTON 'SAISIR ÉCRITURE') Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.059 0.09 0.165 rg
+524.4094488188976584 805.0396062992125508 Td
+(Page 6 / 18) Tj
+ET
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 742.6774015748030706 Td
+(> Élément : Bouton 'Saisir Écriture') Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.196 g
+56.6929133858267775 725.6695275590550409 Td
+(Action : Cliquer sur le bouton 'Nouvelle Ligne' dans le journal de caisse ou de banque.) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.31 0.275 0.898 rg
+56.6929133858267775 711.4962992125983874 Td
+(Résultat Attendu : Ouvre une interface de saisie assistée qui équilibre automatiquement les comptes selon le) Tj
+T* (plan comptable SYSCOHADA.) Tj
+ET
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 660.4726771653542983 Td
+(> Élément : Champ 'Analytique') Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.196 g
+56.6929133858267775 643.4648031496062686 Td
+(Action : Sélectionner le pôle de dépense \(ex: Radiologie\) dans le champ de ventilation.) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.31 0.275 0.898 rg
+56.6929133858267775 629.291574803149615 Td
+(Résultat Attendu : Permet de calculer la rentabilité nette par service lors de l'édition du rapport de fin de mois.) Tj
+ET
+BT
+/F2 18 Tf
+20.6999999999999993 TL
+0.31 0.275 0.898 rg
+42.5196850393700814 592.4411811023621794 Td
+(4.2 RECOUVREMENT) Tj
+ET
+BT
+/F3 10 Tf
+11.5 TL
+0.392 g
+42.5196850393700814 569.7640157480313974 Td
+(Suivi des créances et des paiements tiers-payants.) Tj
+ET
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 541.4175590551180903 Td
+(> Élément : Bouton 'Relancer Assureur') Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.196 g
+56.6929133858267775 524.4096850393700606 Td
+(Action : Cliquer sur l'icône de cloche à côté d'une facture impayée depuis plus de 30 jours.) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.31 0.275 0.898 rg
+56.6929133858267775 510.2364566929133503 Td
+(Résultat Attendu : Envoie un email de relance automatique structuré à la compagnie d'assurance avec le) Tj
+T* (bordereau de facturation en pièce jointe.) Tj
+ET
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 459.2128346456692611 Td
+(> Élément : Tableau 'Balance Agée') Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.196 g
+56.6929133858267775 442.2049606299212314 Td
+(Action : Visualiser la répartition des dettes par ancienneté \(0-30j, 30-60j, +90j\).) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.31 0.275 0.898 rg
+56.6929133858267775 428.0317322834645211 Td
+(Résultat Attendu : Offre une vision critique sur les risques d'impayés et permet d'ajuster la stratégie de) Tj
+T* (recouvrement.) Tj
+ET
+endstream
+endobj
+15 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Contents 16 0 R
+>>
+endobj
+16 0 obj
+<<
+/Length 3525
+>>
+stream
+2.8346456692913389 w
+1. G
+0.97 0.98 0.99 rg
+0. 841.8899999999999864 595.2755905511811534 -56.6929133858267775 re
+f
+BT
+/F2 10 Tf
+11.5 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 805.0396062992125508 Td
+(GROUPE : SUPPORTS & CONFIG) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.059 0.09 0.165 rg
+524.4094488188976584 805.0396062992125508 Td
+(Page 7 / 18) Tj
+ET
+BT
+/F2 18 Tf
+20.6999999999999993 TL
+0.31 0.275 0.898 rg
+42.5196850393700814 742.6774015748030706 Td
+(5.1 PARAMÈTRES) Tj
+ET
+BT
+/F3 10 Tf
+11.5 TL
+0.392 g
+42.5196850393700814 720.0002362204724022 Td
+(Configuration globale et identité numérique de la clinique.) Tj
+ET
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 691.6537795275589815 Td
+(> Élément : Champ 'Taux de TVA') Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.196 g
+56.6929133858267775 674.6459055118109518 Td
+(Action : Modifier la valeur numérique dans la section Configuration Fiscale.) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.31 0.275 0.898 rg
+56.6929133858267775 660.4726771653542983 Td
+(Résultat Attendu : Applique instantanément le nouveau taux à TOUTES les factures générées à partir de cet) Tj
+T* (instant dans tout le système.) Tj
+ET
+BT
+/F2 18 Tf
+20.6999999999999993 TL
+0.31 0.275 0.898 rg
+42.5196850393700814 609.4490551181102092 Td
+(5.2 SIGHI ACADEMY) Tj
+ET
+BT
+/F3 10 Tf
+11.5 TL
+0.392 g
+42.5196850393700814 586.7718897637794271 Td
+(Centre de formation et de certification interactive.) Tj
+ET
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 558.42543307086612 Td
+(> Élément : Bouton 'Lancer Simulation') Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.196 g
+56.6929133858267775 541.4175590551180903 Td
+(Action : Cliquer sur le bouton 'Lancer' d'un module de formation \(ex: Cyber Fortress\).) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.31 0.275 0.898 rg
+56.6929133858267775 527.2443307086614368 Td
+(Résultat Attendu : Démarre un environnement de test immersif où l'utilisateur doit valider des étapes techniques) Tj
+T* (pour obtenir son certificat.) Tj
+ET
+BT
+/F2 18 Tf
+20.6999999999999993 TL
+0.31 0.275 0.898 rg
+42.5196850393700814 476.2207086614172908 Td
+(5.3 ARCHIVES & GED) Tj
+ET
+BT
+/F3 10 Tf
+11.5 TL
+0.392 g
+42.5196850393700814 453.5435433070865656 Td
+(Gestion électronique des documents et archivage légal.) Tj
+ET
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 425.1970866141731449 Td
+(> Élément : Filtrage 'Data Integrity') Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.196 g
+56.6929133858267775 408.1892125984251152 Td
+(Action : Sélectionner le mode 'Audit' dans le navigateur de fichiers.) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.31 0.275 0.898 rg
+56.6929133858267775 394.0159842519684616 Td
+(Résultat Attendu : Affiche l'empreinte blockchain de chaque document pour certifier qu'il n'a pas été modifié) Tj
+T* (depuis son archivage.) Tj
+ET
+BT
+/F2 18 Tf
+20.6999999999999993 TL
+0.31 0.275 0.898 rg
+42.5196850393700814 342.9923622047243725 Td
+(5.4 E-LEARNING CHU) Tj
+ET
+BT
+/F3 10 Tf
+11.5 TL
+0.392 g
+42.5196850393700814 320.3151968503935905 Td
+(Pôle universaitre et formation académique.) Tj
+ET
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 291.9687401574802834 Td
+(> Élément : Bouton 'Rejoindre Live') Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.196 g
+56.6929133858267775 274.9608661417322537 Td
+(Action : Cliquer sur le bouton 'Play' dans la section Masterclass.) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.31 0.275 0.898 rg
+56.6929133858267775 260.7876377952754865 Td
+(Résultat Attendu : Connecte l'utilisateur au flux vidéo sécurisé du bloc opératoire pour une formation en temps) Tj
+T* (réel.) Tj
+ET
+endstream
+endobj
+17 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Contents 18 0 R
+>>
+endobj
+18 0 obj
+<<
+/Length 1226
+>>
+stream
+2.8346456692913389 w
+1. G
+0.97 0.98 0.99 rg
+0. 841.8899999999999864 595.2755905511811534 -56.6929133858267775 re
+f
+BT
+/F2 10 Tf
+11.5 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 805.0396062992125508 Td
+(SYNTHÈSE TECHNIQUE) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.059 0.09 0.165 rg
+524.4094488188976584 805.0396062992125508 Td
+(Page 8 / 18) Tj
+ET
+BT
+/F2 14 Tf
+16.0999999999999979 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 671.8112598425196893 Td
+(CONSIGNES DE SÉCURITÉ OPÉRATIONNELLES) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 643.4648031496062686 Td
+(1. Ne partagez jamais vos identifiants SIGHI 2026. Chaque action est tracée nominalement.) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 623.6222834645668627 Td
+(2. Déconnectez-vous systématiquement avant de quitter votre poste de travail.) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 603.7797637795274568 Td
+(3. En cas de blocage d'un bouton, rafraîchissez la page \(Touche F5\) avant de contacter le support.) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.059 0.09 0.165 rg
+42.5196850393700814 583.9372440944881646 Td
+(4. Les rapports PDF générés doivent être traités avec la plus haute confidentialité médicale.) Tj
+ET
+endstream
+endobj
+1 0 obj
+<</Type /Pages
+/Kids [3 0 R 5 0 R 7 0 R 9 0 R 11 0 R 13 0 R 15 0 R 17 0 R ]
+/Count 8
+>>
+endobj
+19 0 obj
+<<
+/Type /Font
+/BaseFont /Helvetica
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+20 0 obj
+<<
+/Type /Font
+/BaseFont /Helvetica-Bold
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+21 0 obj
+<<
+/Type /Font
+/BaseFont /Helvetica-Oblique
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+22 0 obj
+<<
+/Type /Font
+/BaseFont /Helvetica-BoldOblique
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+23 0 obj
+<<
+/Type /Font
+/BaseFont /Courier
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+24 0 obj
+<<
+/Type /Font
+/BaseFont /Courier-Bold
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+25 0 obj
+<<
+/Type /Font
+/BaseFont /Courier-Oblique
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+26 0 obj
+<<
+/Type /Font
+/BaseFont /Courier-BoldOblique
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+27 0 obj
+<<
+/Type /Font
+/BaseFont /Times-Roman
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+28 0 obj
+<<
+/Type /Font
+/BaseFont /Times-Bold
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+29 0 obj
+<<
+/Type /Font
+/BaseFont /Times-Italic
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+30 0 obj
+<<
+/Type /Font
+/BaseFont /Times-BoldItalic
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+31 0 obj
+<<
+/Type /Font
+/BaseFont /ZapfDingbats
+/Subtype /Type1
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+32 0 obj
+<<
+/Type /Font
+/BaseFont /Symbol
+/Subtype /Type1
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+2 0 obj
+<<
+/ProcSet [/PDF /Text /ImageB /ImageC /ImageI]
+/Font <<
+/F1 19 0 R
+/F2 20 0 R
+/F3 21 0 R
+/F4 22 0 R
+/F5 23 0 R
+/F6 24 0 R
+/F7 25 0 R
+/F8 26 0 R
+/F9 27 0 R
+/F10 28 0 R
+/F11 29 0 R
+/F12 30 0 R
+/F13 31 0 R
+/F14 32 0 R
+>>
+/XObject <<
+>>
+>>
+endobj
+33 0 obj
+<<
+/Producer (jsPDF 4.0.0)
+/CreationDate (D:20260111170318+01'00')
+>>
+endobj
+34 0 obj
+<<
+/Type /Catalog
+/Pages 1 0 R
+/OpenAction [3 0 R /FitH null]
+/PageLayout /OneColumn
+>>
+endobj
+xref
+0 35
+0000000000 65535 f 
+0000027125 00000 n 
+0000028993 00000 n 
+0000000015 00000 n 
+0000000152 00000 n 
+0000001037 00000 n 
+0000001174 00000 n 
+0000004818 00000 n 
+0000004955 00000 n 
+0000009465 00000 n 
+0000009603 00000 n 
+0000014008 00000 n 
+0000014147 00000 n 
+0000019023 00000 n 
+0000019162 00000 n 
+0000021990 00000 n 
+0000022129 00000 n 
+0000025707 00000 n 
+0000025846 00000 n 
+0000027228 00000 n 
+0000027354 00000 n 
+0000027485 00000 n 
+0000027619 00000 n 
+0000027757 00000 n 
+0000027881 00000 n 
+0000028010 00000 n 
+0000028142 00000 n 
+0000028278 00000 n 
+0000028406 00000 n 
+0000028533 00000 n 
+0000028662 00000 n 
+0000028795 00000 n 
+0000028897 00000 n 
+0000029246 00000 n 
+0000029332 00000 n 
+trailer
+<<
+/Size 35
+/Root 34 0 R
+/Info 33 0 R
+/ID [ <39EB8A15EC78B97BBAB36C32DD63C197> <39EB8A15EC78B97BBAB36C32DD63C197> ]
+>>
+startxref
+29436
+%%EOF
