@@ -19,7 +19,7 @@ export async function GET(req: Request) {
         const factures = await prisma.facture.findMany({
             where: whereClause,
             take: limit,
-            orderBy: { dateEmission: 'desc' },
+            orderBy: { dateFacture: 'desc' },
             include: {
                 patient: {
                     select: { nom: true, prenom: true, numeroPatient: true }
