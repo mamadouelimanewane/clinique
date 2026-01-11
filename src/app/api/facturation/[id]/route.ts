@@ -21,7 +21,7 @@ export async function GET(
                 patient: true,
                 lignes: true,
                 paiements: true,
-                consultation: {
+                consultations: {
                     include: {
                         medecin: { select: { nom: true, prenom: true } }
                     }
