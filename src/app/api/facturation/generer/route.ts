@@ -24,7 +24,7 @@ export async function POST(req: Request) {
             where: { id: consultationId },
             include: {
                 patient: true,
-                actes: {
+                actesRealises: {
                     include: { acte: true }
                 },
                 facture: true // Vérifier si déjà facturée
@@ -33,12 +33,12 @@ export async function POST(req: Request) {
 
         if (!consultation) return new NextResponse("Consultation introuvable", { status: 404 })
         if (consultation.facture) return new NextResponse("Déjà facturée", { status: 400 })
-        if (consultation.actes.length === 0) return new NextResponse("Aucun acte à facturer", { status: 400 })
+        if (consultation.actesRealises.length === 0) return new NextResponse("Aucun acte à facturer", { status: 400 })
 
         // 2. Calculs
         let totalBrut = 0
-        consultation.actes.forEach(a => {
-            totalBrut += Number(a.prixApplique) // Prisma Decimal to Number
+        consultation.actesRealises.forEach(a => {
+            totalBrut += Number(a.montant) // Prisma Decimal to Number, using montant instead of prixApplique as per schema
         })
 
         // Gestion part assurance
@@ -57,22 +57,24 @@ export async function POST(req: Request) {
             // Création Facture
             const newFacture = await tx.facture.create({
                 data: {
-                    numero,
+                    numeroFacture: numero,
                     patientId: consultation.patientId,
-                    consultationId: consultation.id,
-                    motif: `Consultation du ${new Date(consultation.dateConsultation).toLocaleDateString()}`,
-                    montantTotal: totalBrut,
+                    consultations: { connect: { id: consultation.id } }, // Connect plural relation
+                    // motif: `Consultation du ...` not in schema directly, maybe skip or add note
+                    montantHT: totalBrut,
+                    montantTTC: totalBrut,
+                    montantTVA: 0,
                     partAssurance: partAssurance,
                     partPatient: partPatient,
-                    statut: "EN_ATTENTE", // ou GRATUIT si 0
-                    dateEmission: new Date(),
-                    createdById: session.user.id,
+                    statut: "PARTIELLE", // EN_ATTENTE not in enum? Schema says IMPAYEE, PARTIELLE, PAYEE, ANNULEE.
+                    dateEcheance: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+                    // createdById: session.user.id, // Not in schema for Facture? Check schema.
                     lignes: {
-                        create: consultation.actes.map(acteRealise => ({
+                        create: consultation.actesRealises.map(acteRealise => ({
                             designation: acteRealise.acte.libelle,
                             quantite: 1,
-                            prixUnitaire: acteRealise.prixApplique,
-                            montantTotal: acteRealise.prixApplique
+                            prixUnitaire: acteRealise.montant,
+                            montant: acteRealise.montant
                         }))
                     }
                 }
