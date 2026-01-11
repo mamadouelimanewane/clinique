@@ -35,18 +35,36 @@ export async function POST(req: Request) {
 
         // Création de la consultation transactionnelle (avec les actes)
         const consultation = await prisma.$transaction(async (tx) => {
+            // Parse tension if present
+            let sys: number | undefined;
+            let dia: number | undefined;
+            if (data.constantes?.tension) {
+                const parts = data.constantes.tension.split('/');
+                if (parts.length === 2) {
+                    sys = parseInt(parts[0]);
+                    dia = parseInt(parts[1]);
+                }
+            }
+
             // 1. Créer la consultation
             const cons = await tx.consultation.create({
                 data: {
                     patientId: data.patientId,
                     medecinId: session.user.id,
                     dateConsultation: data.dateConsultation ? new Date(data.dateConsultation) : new Date(),
-                    motif: data.motif,
-                    interrogatoire: data.interrogatoire,
-                    examenPhysique: data.examenPhysique,
+                    motifConsultation: data.motif,
+                    anamnese: data.interrogatoire,
+                    examenClinique: data.examenPhysique,
                     diagnostic: data.diagnostic,
-                    constantes: data.constantes as any, // Cast JSON
-                    statut: "TERMINEE", // Ou "EN_COURS" selon workflow
+
+                    // Constantes mapping
+                    poids: data.constantes?.poids,
+                    temperature: data.constantes?.temperature,
+                    frequenceCardiaque: data.constantes?.pouls,
+                    saturationOxygene: data.constantes?.saturationO2,
+                    tensionSystolique: sys,
+                    tensionDiastolique: dia,
+                    // Note: 'constantes' field and 'statut' field do not exist in schema and act as virtual/derived/ignored here
                 }
             })
 
@@ -62,7 +80,9 @@ export async function POST(req: Request) {
                         data: {
                             consultationId: cons.id,
                             acteId: acteRef.id,
-                            prixApplique: acteRef.prixStandard, // Par défaut prix standard
+                            quantite: 1,
+                            tarif: acteRef.tarif,
+                            montant: acteRef.tarif,
                         }
                     })
                 }

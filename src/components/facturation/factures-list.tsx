@@ -124,7 +124,7 @@ export function FacturesList() {
                                         <div className="flex flex-col">
                                             <span className="font-mono font-black text-indigo-600 text-xs">{facture.numero}</span>
                                             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">
-                                                {format(new Date(facture.dateEmission), 'dd MMM yyyy')}
+                                                {format(new Date(facture.dateFacture), 'dd MMM yyyy')}
                                             </span>
                                         </div>
                                     </TableCell>

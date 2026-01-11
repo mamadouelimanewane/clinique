@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
 
+// Force update
 export async function GET(req: Request) {
     const session = await getServerSession(authOptions)
     const { searchParams } = new URL(req.url)

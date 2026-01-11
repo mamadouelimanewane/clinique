@@ -77,7 +77,7 @@ export function FactureView({ id }: { id: string }) {
                         </div>
                         <div className="text-right">
                             <h4 className="text-sm font-semibold text-muted-foreground uppercase mb-2">Informations</h4>
-                            <p className="text-sm"><span className="font-medium">Date:</span> {format(new Date(facture.dateEmission), 'dd/MM/yyyy')}</p>
+                            <p className="text-sm"><span className="font-medium">Date:</span> {format(new Date(facture.dateFacture), 'dd/MM/yyyy')}</p>
                             <p className="text-sm"><span className="font-medium">Échéance:</span> Réception</p>
                             {facture.patient.assureur && (
                                 <p className="text-sm mt-2">

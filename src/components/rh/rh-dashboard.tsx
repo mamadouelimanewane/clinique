@@ -68,10 +68,21 @@ import { useQuery } from "@tanstack/react-query"
 import { format } from "date-fns"
 import { fr } from "date-fns/locale"
 
+type Employee = {
+    id: string
+    nom: string
+    prenom: string
+    fonction: string
+    typeContrat: string
+    categorie: string
+    dateEmbauche: string
+    actif: boolean
+}
+
 export function RHDashboard() {
     const [activeTab, setActiveTab] = useState("employees")
 
-    const { data: employeesData, isLoading: isLoadingEmployees } = useQuery({
+    const { data: employeesData, isLoading: isLoadingEmployees } = useQuery<Employee[]>({
         queryKey: ['rh-employees'],
         queryFn: async () => {
             const res = await fetch('/api/rh/employes')
@@ -239,7 +250,7 @@ export function RHDashboard() {
                                                         Aucun collaborateur trouvé.
                                                     </TableCell>
                                                 </TableRow>
-                                            ) : employeesData?.map((emp) => (
+                                            ) : employeesData?.map((emp: Employee) => (
                                                 <TableRow key={emp.id} className="group hover:bg-slate-50 transition-colors">
                                                     <TableCell>
                                                         <div className="flex items-center gap-3">

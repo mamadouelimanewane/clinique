@@ -1,17 +1,17 @@
-import { OpenAI } from "openai"
+import OpenAI from "openai"
 
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
+const getOpenAI = () => new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY || "dummy",
 })
 
-const deepseek = new OpenAI({
-    apiKey: "sk-c8185246c4e54519884527829170409f", // Clé fournie par l'utilisateur
+const getDeepSeek = () => new OpenAI({
+    apiKey: "sk-c8185246c4e54519884527829170409f",
     baseURL: "https://api.deepseek.com",
 })
 
 export async function analyzeMedicalImage(imageUrl: string, specialty: string) {
     try {
-        const response = await openai.chat.completions.create({
+        const response = await getOpenAI().chat.completions.create({
             model: "gpt-4o",
             messages: [
                 {
@@ -38,7 +38,7 @@ export async function analyzeMedicalImage(imageUrl: string, specialty: string) {
 
 export async function processChatWithAi(message: string, patientContext: any) {
     try {
-        const response = await deepseek.chat.completions.create({
+        const response = await getDeepSeek().chat.completions.create({
             model: "deepseek-chat",
             messages: [
                 {
@@ -63,14 +63,14 @@ export async function processChatWithAi(message: string, patientContext: any) {
 export async function transcribeAndAnalyzeVoice(audioBuffer: Buffer) {
     try {
         // Transcription via Whisper
-        const transcription = await openai.audio.transcriptions.create({
+        const transcription = await getOpenAI().audio.transcriptions.create({
             file: await OpenAI.toFile(audioBuffer, "audio.mp3"),
             model: "whisper-1",
             response_format: "text",
         })
 
         // Analyse de sentiment / biomarqueurs via DeepSeek (plus performant en raisonnement textuel)
-        const analysis = await deepseek.chat.completions.create({
+        const analysis = await getDeepSeek().chat.completions.create({
             model: "deepseek-chat",
             messages: [
                 {

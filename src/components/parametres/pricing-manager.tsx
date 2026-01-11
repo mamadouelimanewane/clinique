@@ -6,8 +6,15 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { FileSpreadsheet, Download, Plus, Search, Tag, Settings2 } from "lucide-react"
+import { FileSpreadsheet, Download, Plus, Search, Tag, Settings2, Stethoscope, TrendingUp, Activity, Zap } from "lucide-react"
 import { toast } from "sonner"
+import {
+    Tabs,
+    TabsContent,
+    TabsList,
+    TabsTrigger
+} from "@/components/ui/tabs"
+import { cn } from "@/lib/utils"
 
 export function PricingManager() {
     const [activeTab, setActiveTab] = useState<'actes' | 'pharmacie' | 'articles'>('actes')

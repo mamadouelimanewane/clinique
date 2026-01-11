@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/table"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
-import { useDebounce } from "@/hooks/use-debounce" // We need to create this hook or implement debounce manually
+
 
 // --- Simple debounce hook implementation inline for now ---
 import { useEffect } from "react"

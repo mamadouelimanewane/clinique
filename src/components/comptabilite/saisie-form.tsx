@@ -27,13 +27,13 @@ import {
 } from "@/components/ui/select"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { useToast } from "@/hooks/use-toast" // Note: Need to verify if use-toast exists, if not use simple alert or console
+import { toast } from "sonner"
 import { Textarea } from "@/components/ui/textarea"
 
 // Schema de validation
 const formSchema = z.object({
-    journalId: z.string({ required_error: "Le journal est requis" }),
-    compteId: z.string({ required_error: "Le compte est requis" }),
+    journalId: z.string().min(1, "Le journal est requis"),
+    compteId: z.string().min(1, "Le compte est requis"),
     dateEcriture: z.string(),
     libelle: z.string().min(3, "Le libellé doit contenir au moins 3 caractères"),
     montant: z.string().refine((val) => !isNaN(Number(val)) && Number(val) > 0, {
@@ -52,7 +52,7 @@ type ReferenceData = {
 
 export function SaisieComptableForm() {
     const queryClient = useQueryClient()
-    // const { toast } = useToast() // Commented for now until hook is created
+
 
     // 1. Récupération des données de référence
     const { data: refs, isLoading: isLoadingRefs } = useQuery<ReferenceData>({
@@ -87,11 +87,10 @@ export function SaisieComptableForm() {
                 montant: "",
                 pieceRef: "",
             })
-            // toast({ title: "Écriture enregistrée", description: "L'écriture a été ajoutée au journal." })
-            alert("Écriture enregistrée avec succès !")
+            toast.success("Écriture enregistrée", { description: "L'écriture a été ajoutée au journal." })
         },
         onError: () => {
-            alert("Erreur lors de l'enregistrement.")
+            toast.error("Erreur lors de l'enregistrement.")
         }
     })
 
@@ -106,7 +105,7 @@ export function SaisieComptableForm() {
 
     function onSubmit(values: z.infer<typeof formSchema>) {
         if (!refs?.exercice) {
-            alert("Aucun exercice comptable ouvert trouvé.")
+            toast.error("Aucun exercice comptable ouvert trouvé.")
             return
         }
         mutation.mutate(values)

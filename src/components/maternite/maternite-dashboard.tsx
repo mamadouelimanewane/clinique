@@ -21,7 +21,8 @@ import {
     AlertCircle,
     FileText,
     Settings,
-    UserPlus
+    UserPlus,
+    User
 } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -50,6 +51,7 @@ import {
     DialogFooter
 } from "@/components/ui/dialog"
 import { Progress } from "@/components/ui/progress"
+import { Label } from "@/components/ui/label"
 import { cn } from "@/lib/utils"
 
 export function MaterniteDashboard() {

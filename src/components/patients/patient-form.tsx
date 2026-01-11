@@ -6,6 +6,7 @@ import * as z from "zod"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
 import { Loader2, Save } from "lucide-react"
+import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -49,10 +50,19 @@ export function PatientForm() {
     const queryClient = useQueryClient()
 
     const form = useForm<z.infer<typeof patientValidationSchema>>({
-        resolver: zodResolver(patientValidationSchema),
+        resolver: zodResolver(patientValidationSchema) as any,
         defaultValues: {
+            prenom: "",
+            nom: "",
+            dateNaissance: "",
             sexe: "M",
+            telephone: "",
+            email: "",
+            adresse: "",
             situationMatrimoniale: "CELIBATAIRE",
+            profession: "",
+            assureur: "",
+            numeroAssure: "",
             tauxCouverture: 0,
             ville: "Dakar",
         },
@@ -70,11 +80,11 @@ export function PatientForm() {
         },
         onSuccess: (data) => {
             queryClient.invalidateQueries({ queryKey: ['patients-list'] })
-            alert("Patient créé avec succès")
+            toast.success("Patient créé avec succès")
             router.push(`/patients/${data.id}`)
         },
         onError: () => {
-            alert("Erreur lors de la création")
+            toast.error("Erreur lors de la création")
         }
     })
 

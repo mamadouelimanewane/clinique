@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Section } from "lucide-react"
+
 import { CardioModule } from "./specialites/cardio-module"
 import { DentalModule } from "./specialites/dental-module"
 import { GynecoModule } from "./specialites/gyneco-module"
@@ -58,6 +58,7 @@ export function UnifiedConsultationForm({ specialist }: { specialist?: string })
                 const gedResult = await uploadToGed(pdfBlob, {
                     patientId: "P-882",
                     type: "CONSULTATION",
+                    module: "CONSULTATION",
                     title: `Rapport Consultation ${new Date().toLocaleDateString()}`
                 })
 

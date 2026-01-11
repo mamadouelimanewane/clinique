@@ -36,7 +36,7 @@ export async function GET(
                         }
                     }
                 },
-                rendezVous: {
+                rendezvous: {
                     where: { dateHeure: { gte: new Date() } },
                     orderBy: { dateHeure: 'asc' },
                     take: 3

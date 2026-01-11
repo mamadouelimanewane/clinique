@@ -5,18 +5,32 @@ export async function POST(req: Request) {
     try {
         const { patientId, specialite, montant } = await req.json()
 
+        const prix = montant || 15000
+        const dateNow = new Date()
+        const dateEcheance = new Date(dateNow)
+        dateEcheance.setDate(dateEcheance.getDate() + 30) // 30 jours échéance
+
+        // Génération de numéro de facture (simplifié)
+        const count = await prisma.facture.count()
+        const numeroFacture = `FAC-${dateNow.getFullYear()}-${(count + 1).toString().padStart(4, '0')}`
+
         // 1. Création automatique d'une facture pour l'acte de spécialité
         const facture = await prisma.facture.create({
             data: {
                 patientId,
-                montantTotal: montant || 15000, // Tarif par défaut spécialité si non précisé
-                statut: "EN_ATTENTE",
+                numeroFacture,
+                dateEcheance,
+                montantHT: prix,
+                montantTTC: prix,
+                partPatient: prix,
+                partAssurance: 0,
+                statut: "IMPAYEE",
                 lignes: {
                     create: {
-                        libelle: `Consultation Spécialisée : ${specialite}`,
+                        designation: `Consultation Spécialisée : ${specialite}`,
                         quantite: 1,
-                        prixUnitaire: montant || 15000,
-                        montantTotal: montant || 15000,
+                        prixUnitaire: prix,
+                        montant: prix,
                     }
                 }
             }

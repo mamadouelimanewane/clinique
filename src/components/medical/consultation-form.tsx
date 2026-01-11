@@ -6,6 +6,7 @@ import * as z from "zod"
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
 import { Loader2, Save, Thermometer, Activity, Weight, Heart } from "lucide-react"
+import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -57,12 +58,19 @@ export function ConsultationForm({ patientId, patientName }: Props) {
     })
 
     const form = useForm<z.infer<typeof consultationSchema>>({
-        resolver: zodResolver(consultationSchema),
+        resolver: zodResolver(consultationSchema) as any,
         defaultValues: {
             patientId: patientId,
+            motif: "",
+            interrogatoire: "",
+            examenPhysique: "",
+            diagnostic: "",
             actesIds: [],
             constantes: {
+                tension: "",
                 temperature: 37,
+                poids: 0,
+                pouls: 0,
             }
         },
     })
@@ -79,11 +87,11 @@ export function ConsultationForm({ patientId, patientName }: Props) {
         },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['patient', patientId] })
-            alert("Consultation enregistrée avec succès")
+            toast.success("Consultation enregistrée avec succès")
             router.push(`/patients/${patientId}`) // Retour au dossier patient
         },
         onError: () => {
-            alert("Erreur lors de l'enregistrement")
+            toast.error("Erreur lors de l'enregistrement")
         }
     })
 

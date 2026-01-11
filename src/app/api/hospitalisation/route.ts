@@ -87,8 +87,8 @@ export async function PUT(req: Request) {
             prisma.hospitalisation.update({
                 where: { id: hospitalisationId },
                 data: {
-                    statut: "TERMINE",
-                    dateFin: new Date()
+                    statut: "SORTI",
+                    dateSortie: new Date()
                 }
             }),
             // 2. Libérer le lit

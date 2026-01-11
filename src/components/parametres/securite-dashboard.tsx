@@ -12,7 +12,6 @@ import {
     ShieldAlert,
     Fingerprint,
     Shield,
-    UserGroup,
     Activity,
     Smartphone,
     Globe,
@@ -25,7 +24,8 @@ import {
     Database,
     AlertTriangle,
     Mail,
-    BadgeCheck
+    BadgeCheck,
+    Plus
 } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -215,8 +215,8 @@ export function UserSecurityDashboard() {
                                             </TableCell>
                                             <TableCell>
                                                 <div className="flex gap-1">
-                                                    {u.mfa ? <Fingerprint className="h-4 w-4 text-emerald-500" title="MFA Activé" /> : <ShieldAlert className="h-4 w-4 text-orange-400" title="MFA Manquant" />}
-                                                    <Smartphone className="h-4 w-4 text-blue-500" title="Device Connu" />
+                                                    {u.mfa ? <Fingerprint className="h-4 w-4 text-emerald-500" /> : <ShieldAlert className="h-4 w-4 text-orange-400" />}
+                                                    <Smartphone className="h-4 w-4 text-blue-500" />
                                                 </div>
                                             </TableCell>
                                             <TableCell className="text-xs font-mono text-slate-400">{u.lastLogin}</TableCell>
