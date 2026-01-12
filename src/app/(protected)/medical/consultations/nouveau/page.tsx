@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma"
-import { ConsultationForm } from "@/components/medical/consultation-form"
+import { UnifiedConsultationForm } from "@/components/medical/consultation-form-unified"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { InfoIcon } from "lucide-react"
 import Link from "next/link"
@@ -42,13 +42,10 @@ export default async function NewConsultationPage({
 
     return (
         <div className="space-y-6">
-            <div>
-                <h2 className="text-3xl font-bold tracking-tight">Nouvelle Consultation</h2>
-                <p className="text-muted-foreground">
-                    Saisie de l'observation médicale et des actes.
-                </p>
-            </div>
-            <ConsultationForm patientId={patient.id} patientName={`${patient.prenom} ${patient.nom}`} />
+            <UnifiedConsultationForm
+                patientId={patient.id}
+                patientName={`${patient.prenom} ${patient.nom}`}
+            />
         </div>
     )
 }

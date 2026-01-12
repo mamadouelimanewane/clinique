@@ -4,7 +4,6 @@ import { useState } from "react"
 import {
     Users,
     Briefcase,
-    FileBadge,
     Banknote,
     Calendar,
     Search,
@@ -15,27 +14,18 @@ import {
     ScrollText,
     History,
     CheckCircle2,
-    AlertCircle,
     Clock,
     Calculator,
-    Building2,
-    Stethoscope,
-    Fingerprint,
     FileText,
     TrendingUp,
     ShieldCheck,
-    MapPin,
-    Phone,
-    Mail,
     Archive,
     Download,
     Eye,
     Landmark,
-    Percent,
     Loader2,
     TrendingDown,
     ArrowRightLeft,
-    ArrowUpRight
 } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -156,7 +146,6 @@ export function RHDashboard() {
                             <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1 italic tracking-tighter">{stat.label}</p>
                             <div className="mt-4 pt-4 border-t border-slate-50 flex items-center justify-between">
                                 <span className="text-[9px] font-bold text-slate-400 uppercase">{stat.sub}</span>
-                                {/* <ArrowUpRight className="h-3 w-3 text-slate-300" /> */}
                             </div>
                         </CardContent>
                     </Card>
@@ -399,6 +388,138 @@ export function RHDashboard() {
                                 <Button className="w-full bg-white text-teal-900 font-bold text-xs h-9">Télécharger Fichier XML Etax</Button>
                             </Card>
                         </div>
+                    </div>
+                </TabsContent>
+
+                {/* Congés & Absences */}
+                <TabsContent value="conges" className="mt-0 space-y-6">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div className="lg:col-span-2">
+                            <Card className="border-none shadow-xl rounded-[32px] overflow-hidden bg-white">
+                                <CardHeader className="bg-slate-50/50 border-b p-8">
+                                    <div className="flex justify-between items-center">
+                                        <div>
+                                            <CardTitle className="text-xl font-black uppercase tracking-tighter italic">Suivi des <span className="text-amber-600">Absences</span></CardTitle>
+                                            <CardDescription className="text-[10px] font-black uppercase tracking-widest text-slate-400">Demandes en attente et soldes</CardDescription>
+                                        </div>
+                                        <Button className="h-12 rounded-2xl bg-amber-600 hover:bg-amber-700 font-black px-6 shadow-xl shadow-amber-100 uppercase text-[10px] tracking-widest italic">
+                                            <Plus className="mr-2 h-4 w-4" /> Nouvelle Demande
+                                        </Button>
+                                    </div>
+                                </CardHeader>
+                                <CardContent className="p-0">
+                                    <Table>
+                                        <TableHeader>
+                                            <TableRow className="bg-slate-50/50 border-none">
+                                                <TableHead className="px-8 font-black text-[10px] uppercase tracking-widest h-14">Employé</TableHead>
+                                                <TableHead className="font-black text-[10px] uppercase tracking-widest h-14">Type</TableHead>
+                                                <TableHead className="font-black text-[10px] uppercase tracking-widest h-14 text-center">Durée</TableHead>
+                                                <TableHead className="font-black text-[10px] uppercase tracking-widest h-14">Statut</TableHead>
+                                                <TableHead className="text-right px-8 font-black text-[10px] uppercase tracking-widest h-14">Action</TableHead>
+                                            </TableRow>
+                                        </TableHeader>
+                                        <TableBody>
+                                            {[
+                                                { id: 1, name: "Alioune SOW", type: "ANNUEL", duration: "12 jours", status: "EN_ATTENTE" },
+                                                { id: 2, name: "Awa DIOP", type: "MALADIE", duration: "3 jours", status: "APPROUVE" },
+                                                { id: 3, name: "Moussa NDIAYE", type: "MATERNITE", duration: "90 jours", status: "APPROUVE" },
+                                            ].map((conge) => (
+                                                <TableRow key={conge.id} className="hover:bg-amber-50/20 border-slate-50">
+                                                    <TableCell className="px-8 py-4 font-bold text-slate-900 text-xs uppercase">{conge.name}</TableCell>
+                                                    <TableCell><Badge variant="outline" className="text-[9px] font-black">{conge.type}</Badge></TableCell>
+                                                    <TableCell className="text-center font-mono text-xs font-black">{conge.duration}</TableCell>
+                                                    <TableCell>
+                                                        <Badge className={cn(
+                                                            "text-[9px] font-black border-none",
+                                                            conge.status === "APPROUVE" ? "bg-emerald-100 text-emerald-700" : "bg-amber-100 text-amber-700"
+                                                        )}>{conge.status}</Badge>
+                                                    </TableCell>
+                                                    <TableCell className="text-right px-8">
+                                                        <Button variant="ghost" size="sm" className="font-black text-[10px] uppercase tracking-widest text-teal-600">Détails</Button>
+                                                    </TableCell>
+                                                </TableRow>
+                                            ))}
+                                        </TableBody>
+                                    </Table>
+                                </CardContent>
+                            </Card>
+                        </div>
+                        <div className="space-y-6">
+                            <Card className="border-none shadow-xl rounded-[32px] bg-white p-8">
+                                <h4 className="font-black text-[10px] uppercase tracking-[0.2em] text-slate-400 mb-6 flex items-center gap-2">
+                                    <Calendar className="h-4 w-4 text-teal-600" /> Solde Global Congés
+                                </h4>
+                                <div className="space-y-6">
+                                    <div className="space-y-2">
+                                        <div className="flex justify-between text-[10px] font-black uppercase tracking-widest">
+                                            <span>Pris</span>
+                                            <span className="text-teal-600">75%</span>
+                                        </div>
+                                        <Progress value={75} className="h-2 bg-slate-100" />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <div className="flex justify-between text-[10px] font-black uppercase tracking-widest">
+                                            <span>Restant (Provision)</span>
+                                            <span className="text-amber-600">25%</span>
+                                        </div>
+                                        <Progress value={25} className="h-2 bg-slate-100" />
+                                    </div>
+                                </div>
+                                <div className="mt-8 p-4 bg-teal-50 rounded-2xl border border-teal-100">
+                                    <p className="text-[10px] font-black text-teal-900 uppercase leading-relaxed text-center">Provision comptable congés payés : <br /> <span className="text-lg">8,450,000 F</span></p>
+                                </div>
+                            </Card>
+                        </div>
+                    </div>
+                </TabsContent>
+
+                {/* Reporting RH */}
+                <TabsContent value="reporting" className="mt-0">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <Card className="border-none shadow-xl rounded-[32px] bg-slate-900 text-white p-8 relative overflow-hidden group">
+                            <TrendingUp className="absolute -bottom-6 -right-6 h-32 w-32 opacity-10 group-hover:scale-110 transition-transform duration-700" />
+                            <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-teal-400 mb-6 flex items-center gap-2">Analyse Sociale</h4>
+                            <div className="space-y-6 relative z-10">
+                                <div>
+                                    <p className="text-3xl font-black tracking-tighter">8.4%</p>
+                                    <p className="text-[9px] font-black text-slate-400 uppercase mt-1">Taux de Turnover Annuel</p>
+                                </div>
+                                <div>
+                                    <p className="text-2xl font-black tracking-tighter">4.2/5</p>
+                                    <p className="text-[9px] font-black text-slate-400 uppercase mt-1">NPS Collaborateur</p>
+                                </div>
+                            </div>
+                        </Card>
+
+                        <Card className="md:col-span-2 border-none shadow-xl rounded-[32px] bg-white p-8">
+                            <div className="flex justify-between items-center mb-8">
+                                <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Croissance des Effectifs</h4>
+                                <Badge className="bg-emerald-100 text-emerald-700 border-none font-black text-[9px]">+12% cette année</Badge>
+                            </div>
+                            <div className="h-48 w-full flex items-end gap-3 pb-4 border-b border-slate-50">
+                                {[35, 42, 38, 45, 52, 60, 58, 65, 72, 80, 78, 82].map((h, i) => (
+                                    <div key={i} className="flex-1 bg-teal-100/50 rounded-t-lg hover:bg-teal-600 transition-all cursor-pointer group relative" style={{ height: `${h}%` }}>
+                                        <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-[8px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                                            {h} pers.
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="flex justify-between mt-4 text-[8px] font-black text-slate-400 text-center uppercase tracking-widest">
+                                <span>Jan</span>
+                                <span>Juin</span>
+                                <span>Déc</span>
+                            </div>
+                        </Card>
+                    </div>
+                </TabsContent>
+
+                {/* Recrutement */}
+                <TabsContent value="recrutement" className="mt-0">
+                    <div className="flex flex-col items-center justify-center p-20 bg-white rounded-[40px] shadow-xl border border-dashed border-slate-200">
+                        <UserPlus className="h-12 w-12 text-teal-200 mb-4" />
+                        <h3 className="text-lg font-black uppercase tracking-tighter text-slate-400 italic">Talent Acquisition Portal</h3>
+                        <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-2">Pipeline de recrutement en déploiement...</p>
                     </div>
                 </TabsContent>
             </Tabs>

@@ -1,32 +1,44 @@
 import { NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/lib/auth"
 
-// GET all suppliers
 export async function GET() {
+    const session = await getServerSession(authOptions)
+    if (!session) return new NextResponse("Non autorisé", { status: 401 })
+
     try {
         const fournisseurs = await prisma.fournisseur.findMany({
             include: {
-                commandes: {
-                    orderBy: { dateCommande: 'desc' },
-                    take: 5
+                _count: {
+                    select: { commandes: true }
                 }
-            }
+            },
+            orderBy: { nom: 'asc' }
         })
         return NextResponse.json(fournisseurs)
     } catch (error) {
-        return NextResponse.json({ error: "Failed to fetch suppliers" }, { status: 500 })
+        return new NextResponse("Erreur interne", { status: 500 })
     }
 }
 
-// POST create new supplier
 export async function POST(req: Request) {
+    const session = await getServerSession(authOptions)
+    if (!session) return new NextResponse("Non autorisé", { status: 401 })
+
     try {
         const body = await req.json()
         const fournisseur = await prisma.fournisseur.create({
-            data: body
+            data: {
+                nom: body.nom,
+                contact: body.contact,
+                email: body.email,
+                telephone: body.telephone,
+                adresse: body.adresse
+            }
         })
         return NextResponse.json(fournisseur)
     } catch (error) {
-        return NextResponse.json({ error: "Failed to create supplier" }, { status: 500 })
+        return new NextResponse("Erreur interne", { status: 500 })
     }
 }

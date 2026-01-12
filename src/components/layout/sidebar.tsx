@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import {
     LayoutDashboard,
+    BarChart3,
     Stethoscope,
     Pill,
     CreditCard,
@@ -52,6 +53,7 @@ const menuGroups = [
         items: [
             { label: "Tableau de bord", icon: LayoutDashboard, href: "/dashboard", color: "text-sky-500" },
             { label: "Rendez-vous", icon: Calendar, href: "/appointments", color: "text-indigo-400" },
+            { label: "Business Intelligence", icon: BarChart3, href: "/rapports", color: "text-emerald-400" },
             { label: "Accueil", icon: Home, href: "/accueil", color: "text-orange-500" },
         ]
     },
@@ -60,7 +62,7 @@ const menuGroups = [
         items: [
             { label: "Patients", icon: UserPlus, href: "/patients", color: "text-pink-700" },
             { label: "Consultations", icon: Stethoscope, href: "/medical", color: "text-violet-500" },
-            { label: "Hospitalisation", icon: Bed, href: "/hospitalisation", color: "text-blue-600" },
+            { label: "Hospitalisation", icon: Bed, href: "/medical/hospitalisation", color: "text-blue-600" },
             { label: "Bloc Opératoire", icon: Scissors, href: "/chirurgie", color: "text-red-500" },
             { label: "Maternité", icon: Baby, href: "/maternite", color: "text-pink-400" },
             { label: "Smart Concierge", icon: ConciergeBell, href: "/patients/concierge", color: "text-amber-500" },
@@ -74,7 +76,7 @@ const menuGroups = [
     {
         title: "Plateau Technique",
         items: [
-            { label: "Laboratoire", icon: FlaskConical, href: "/labo", color: "text-emerald-600" },
+            { label: "Laboratoire", icon: FlaskConical, href: "/medical/laboratoire", color: "text-emerald-600" },
             { label: "Imagerie", icon: Scan, href: "/imagerie", color: "text-blue-500" },
             { label: "Pharmacie", icon: Pill, href: "/pharmacie", color: "text-emerald-500" },
             { label: "Logistique / Stocks", icon: Package, href: "/logistique", color: "text-amber-600" },

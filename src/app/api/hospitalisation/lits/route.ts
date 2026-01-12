@@ -11,16 +11,16 @@ export async function GET(req: Request) {
         const lits = await prisma.lit.findMany({
             include: {
                 hospitalisations: {
-                    where: { statut: 'EN_COURS' },
-                    include: {
-                        patient: { select: { nom: true, prenom: true, id: true, numeroPatient: true } }
-                    }
+                    where: { statut: "EN_COURS" },
+                    include: { patient: { select: { nom: true, prenom: true, numeroPatient: true } } }
                 }
             },
-            orderBy: [{ service: 'asc' }, { numero: 'asc' }]
+            orderBy: { numero: 'asc' }
         })
+
         return NextResponse.json(lits)
     } catch (error) {
+        console.error(error)
         return new NextResponse("Erreur interne", { status: 500 })
     }
 }
