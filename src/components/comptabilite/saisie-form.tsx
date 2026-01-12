@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
 import { format } from "date-fns"
-import { Loader2, Plus, ArrowRight, Save } from "lucide-react"
+import { Loader2, Plus, ArrowRight, Save, FileText, Calendar, Hash, Tag, DollarSign, ArrowUpCircle, ArrowDownCircle, BookOpen } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -26,9 +26,9 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { Input } from "@/components/ui/input"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { toast } from "sonner"
-import { Textarea } from "@/components/ui/textarea"
+import { cn } from "@/lib/utils"
 
 // Schema de validation
 const formSchema = z.object({
@@ -52,7 +52,6 @@ type ReferenceData = {
 
 export function SaisieComptableForm() {
     const queryClient = useQueryClient()
-
 
     // 1. Récupération des données de référence
     const { data: refs, isLoading: isLoadingRefs } = useQuery<ReferenceData>({
@@ -80,14 +79,17 @@ export function SaisieComptableForm() {
             return res.json()
         },
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['ecritures-list'] }) // Refresh list
+            queryClient.invalidateQueries({ queryKey: ['ecritures-list'] })
             form.reset({
                 ...form.getValues(),
                 libelle: "",
                 montant: "",
                 pieceRef: "",
             })
-            toast.success("Écriture enregistrée", { description: "L'écriture a été ajoutée au journal." })
+            toast.success("Écriture enregistrée", {
+                description: "L'écriture a été ajoutée avec succès au journal OHADA.",
+                className: "bg-emerald-50 border-emerald-200 text-emerald-800 font-bold"
+            })
         },
         onError: () => {
             toast.error("Erreur lors de l'enregistrement.")
@@ -112,36 +114,53 @@ export function SaisieComptableForm() {
     }
 
     if (isLoadingRefs) {
-        return <div className="flex justify-center p-8"><Loader2 className="h-8 w-8 animate-spin" /></div>
+        return (
+            <div className="flex flex-col items-center justify-center p-12 bg-white rounded-[32px] shadow-xl border border-slate-50">
+                <Loader2 className="h-12 w-12 animate-spin text-emerald-600 mb-4" />
+                <p className="text-sm font-black uppercase tracking-widest text-slate-400">Initialisation du Plan Comptable...</p>
+            </div>
+        )
     }
 
     return (
-        <Card className="w-full">
-            <CardHeader>
-                <CardTitle>Saisie d'écriture</CardTitle>
+        <Card className="border-none shadow-2xl rounded-[40px] overflow-hidden bg-white/80 backdrop-blur-xl">
+            <CardHeader className="bg-slate-900 text-white p-8">
+                <div className="flex items-center gap-4 mb-2">
+                    <div className="h-10 w-10 rounded-xl bg-emerald-500 flex items-center justify-center">
+                        <BookOpen className="h-6 w-6 text-white" />
+                    </div>
+                    <div>
+                        <CardTitle className="text-2xl font-black uppercase tracking-tighter italic">Saisie <span className="text-emerald-400">Comptable</span></CardTitle>
+                        <CardDescription className="text-slate-400 font-bold text-[10px] uppercase tracking-widest">
+                            {refs?.exercice ? `Exercice ${refs.exercice.annee}` : 'Aucun exercice actif'} • Normes SYSCOA
+                        </CardDescription>
+                    </div>
+                </div>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-8">
                 <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             {/* Journal */}
                             <FormField
                                 control={form.control}
                                 name="journalId"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Journal</FormLabel>
+                                        <FormLabel className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-500">
+                                            <FileText className="h-3 w-3 text-emerald-500" /> Journal de destination
+                                        </FormLabel>
                                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                                             <FormControl>
-                                                <SelectTrigger>
-                                                    <SelectValue placeholder="Sélectionner un journal" />
+                                                <SelectTrigger className="h-14 rounded-2xl border-none bg-slate-50 shadow-inner font-bold focus:ring-emerald-500 transition-all">
+                                                    <SelectValue placeholder="Choisir un journal" />
                                                 </SelectTrigger>
                                             </FormControl>
-                                            <SelectContent>
+                                            <SelectContent className="rounded-2xl border-slate-100 shadow-2xl">
                                                 {refs?.journaux.map((j) => (
-                                                    <SelectItem key={j.id} value={j.id}>
-                                                        {j.code} - {j.libelle}
+                                                    <SelectItem key={j.id} value={j.id} className="font-bold py-3">
+                                                        <span className="text-emerald-600 mr-2">[{j.code}]</span> {j.libelle}
                                                     </SelectItem>
                                                 ))}
                                             </SelectContent>
@@ -157,9 +176,11 @@ export function SaisieComptableForm() {
                                 name="dateEcriture"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Date d'écriture</FormLabel>
+                                        <FormLabel className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-500">
+                                            <Calendar className="h-3 w-3 text-emerald-500" /> Date d'opération
+                                        </FormLabel>
                                         <FormControl>
-                                            <Input type="date" {...field} />
+                                            <Input type="date" {...field} className="h-14 rounded-2xl border-none bg-slate-50 shadow-inner font-bold focus:ring-emerald-500" />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
@@ -167,24 +188,27 @@ export function SaisieComptableForm() {
                             />
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             {/* Compte */}
                             <FormField
                                 control={form.control}
                                 name="compteId"
                                 render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Compte (Plan SYSCOA)</FormLabel>
+                                    <FormItem className="md:col-span-1">
+                                        <FormLabel className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-500">
+                                            <Hash className="h-3 w-3 text-emerald-500" /> Compte SYSCOA
+                                        </FormLabel>
                                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                                             <FormControl>
-                                                <SelectTrigger>
-                                                    <SelectValue placeholder="Sélectionner un compte" />
+                                                <SelectTrigger className="h-14 rounded-2xl border-none bg-slate-50 shadow-inner font-bold focus:ring-emerald-500">
+                                                    <SelectValue placeholder="Choisir un compte" />
                                                 </SelectTrigger>
                                             </FormControl>
-                                            <SelectContent className="max-h-[300px]">
+                                            <SelectContent className="max-h-[400px] rounded-2xl border-slate-100 shadow-2xl">
                                                 {refs?.comptes.map((c) => (
-                                                    <SelectItem key={c.id} value={c.id}>
-                                                        {c.numero} - {c.libelle}
+                                                    <SelectItem key={c.id} value={c.id} className="font-bold py-3">
+                                                        <span className="bg-slate-900 text-white px-2 py-0.5 rounded-lg text-[9px] mr-3">{c.numero}</span>
+                                                        {c.libelle}
                                                     </SelectItem>
                                                 ))}
                                             </SelectContent>
@@ -200,9 +224,11 @@ export function SaisieComptableForm() {
                                 name="pieceRef"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Réf. Pièce (Optionnel)</FormLabel>
+                                        <FormLabel className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-500">
+                                            <Save className="h-3 w-3 text-emerald-500" /> Référence Pièce
+                                        </FormLabel>
                                         <FormControl>
-                                            <Input placeholder="Ex: FAC-001" {...field} />
+                                            <Input placeholder="PCS-2026-0001" {...field} className="h-14 rounded-2xl border-none bg-slate-50 shadow-inner font-bold placeholder:text-slate-300 focus:ring-emerald-500 uppercase" />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
@@ -216,25 +242,29 @@ export function SaisieComptableForm() {
                             name="libelle"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Libellé de l'écriture</FormLabel>
+                                    <FormLabel className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-500">
+                                        <Tag className="h-3 w-3 text-emerald-500" /> Intitulé de l'écriture
+                                    </FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Ex: Achat fournitures bureau" {...field} />
+                                        <Input placeholder="Description détaillée du mouvement..." {...field} className="h-14 rounded-2xl border-none bg-slate-50 shadow-inner font-bold focus:ring-emerald-500 placeholder:text-slate-300" />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
                             )}
                         />
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-end">
                             {/* Montant */}
                             <FormField
                                 control={form.control}
                                 name="montant"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Montant (XOF)</FormLabel>
+                                        <FormLabel className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-500">
+                                            <DollarSign className="h-3 w-3 text-emerald-500" /> Valeur Numéraire (XOF)
+                                        </FormLabel>
                                         <FormControl>
-                                            <Input type="number" placeholder="0" {...field} />
+                                            <Input type="number" placeholder="0" {...field} className="h-16 rounded-2xl border-none bg-emerald-50 shadow-inner font-black text-2xl text-emerald-700 focus:ring-emerald-500" />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
@@ -247,27 +277,50 @@ export function SaisieComptableForm() {
                                 name="sens"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Sens</FormLabel>
-                                        <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                            <FormControl>
-                                                <SelectTrigger>
-                                                    <SelectValue />
-                                                </SelectTrigger>
-                                            </FormControl>
-                                            <SelectContent>
-                                                <SelectItem value="DEBIT">DÉBIT</SelectItem>
-                                                <SelectItem value="CREDIT">CRÉDIT</SelectItem>
-                                            </SelectContent>
-                                        </Select>
+                                        <FormLabel className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-500">
+                                            <ArrowRight className="h-3 w-3 text-emerald-500" /> Sens du Flux
+                                        </FormLabel>
+                                        <div className="grid grid-cols-2 gap-3">
+                                            <Button
+                                                type="button"
+                                                variant={field.value === "DEBIT" ? "default" : "outline"}
+                                                className={cn(
+                                                    "h-16 rounded-2xl font-black uppercase tracking-widest transition-all",
+                                                    field.value === "DEBIT" ? "bg-slate-900 shadow-xl" : "bg-slate-50 border-none text-slate-400"
+                                                )}
+                                                onClick={() => field.onChange("DEBIT")}
+                                            >
+                                                <ArrowUpCircle className={cn("mr-2 h-5 w-5", field.value === "DEBIT" ? "text-emerald-400" : "text-slate-300")} /> Débit
+                                            </Button>
+                                            <Button
+                                                type="button"
+                                                variant={field.value === "CREDIT" ? "default" : "outline"}
+                                                className={cn(
+                                                    "h-16 rounded-2xl font-black uppercase tracking-widest transition-all",
+                                                    field.value === "CREDIT" ? "bg-slate-900 shadow-xl" : "bg-slate-50 border-none text-slate-400"
+                                                )}
+                                                onClick={() => field.onChange("CREDIT")}
+                                            >
+                                                <ArrowDownCircle className={cn("mr-2 h-5 w-5", field.value === "CREDIT" ? "text-rose-400" : "text-slate-300")} /> Crédit
+                                            </Button>
+                                        </div>
                                         <FormMessage />
                                     </FormItem>
                                 )}
                             />
                         </div>
 
-                        <Button type="submit" className="w-full" disabled={mutation.isPending}>
-                            {mutation.isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
-                            Enregistrer l'écriture
+                        <Button
+                            type="submit"
+                            className="w-full h-16 rounded-[24px] bg-emerald-600 hover:bg-emerald-700 text-white font-black uppercase tracking-widest shadow-2xl shadow-emerald-200 transition-all active:scale-95 group"
+                            disabled={mutation.isPending}
+                        >
+                            {mutation.isPending ? (
+                                <Loader2 className="mr-3 h-6 w-6 animate-spin" />
+                            ) : (
+                                <Save className="mr-3 h-6 w-6 group-hover:rotate-12 transition-transform" />
+                            )}
+                            Valider l'écriture en base
                         </Button>
                     </form>
                 </Form>
