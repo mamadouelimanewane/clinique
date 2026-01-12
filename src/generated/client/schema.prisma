@@ -1,0 +1,998 @@
+// SIGHI - Système Intégré de Gestion Hospitalière Intelligent
+// Schéma Prisma complet pour clinique au Sénégal
+// Conforme OHADA/SYSCOA + Gestion médicale complète
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================================================
+// 🔐 AUTHENTIFICATION & SÉCURITÉ
+// ============================================================================
+
+model User {
+  id        String  @id @default(cuid())
+  email     String  @unique
+  password  String
+  nom       String
+  prenom    String
+  telephone String?
+  photo     String?
+  actif     Boolean @default(true)
+
+  // Relations
+  role   Role   @relation(fields: [roleId], references: [id])
+  roleId String
+
+  // Activités
+  consultations Consultation[]
+  rendezvous    RendezVous[]
+  ecritures     EcritureComptable[]
+  paiements     Paiement[]
+  auditLogs     AuditLog[]
+
+  // Hospitalisation & Chirurgie
+  observationsCrees ObservationInfirmier[]
+  chirurgies        Intervention[]         @relation("Chirurgien")
+  anesthesies       Intervention[]         @relation("Anesthesiste")
+
+  // RH Relation
+  employe Employe?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([email])
+  @@index([roleId])
+}
+
+model Role {
+  id          String       @id @default(cuid())
+  nom         String       @unique
+  description String?
+  permissions Permission[]
+  users       User[]
+  createdAt   DateTime     @default(now())
+}
+
+model Permission {
+  id          String   @id @default(cuid())
+  nom         String   @unique
+  description String?
+  module      String // COMPTABILITE, MEDICAL, PHARMACIE, RH, ADMIN
+  action      String // CREATE, READ, UPDATE, DELETE, VALIDATE
+  roles       Role[]
+  createdAt   DateTime @default(now())
+
+  @@unique([module, action])
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+  action     String // CREATE, UPDATE, DELETE, LOGIN, LOGOUT
+  module     String
+  entityType String
+  entityId   String?
+  details    Json?
+  ipAddress  String?
+  userAgent  String?
+  createdAt  DateTime @default(now())
+
+  @@index([userId])
+  @@index([createdAt])
+  @@index([module])
+}
+
+// ============================================================================
+// 💰 COMPTABILITÉ OHADA/SYSCOA
+// ============================================================================
+
+model CompteComptable {
+  id        String              @id @default(cuid())
+  numero    String              @unique // Ex: "601100"
+  libelle   String // Ex: "Achats de marchandises"
+  classe    Int // 1-8 (SYSCOA)
+  type      String // ACTIF, PASSIF, CHARGE, PRODUIT
+  sens      String // DEBIT, CREDIT
+  actif     Boolean             @default(true)
+  ecritures EcritureComptable[]
+  createdAt DateTime            @default(now())
+  updatedAt DateTime            @updatedAt
+
+  @@index([numero])
+  @@index([classe])
+}
+
+model Journal {
+  id        String              @id @default(cuid())
+  code      String              @unique // AC, VE, BQ, CA, OD
+  libelle   String // "Journal des Achats"
+  type      String // ACHATS, VENTES, BANQUE, CAISSE, OD
+  actif     Boolean             @default(true)
+  ecritures EcritureComptable[]
+  createdAt DateTime            @default(now())
+
+  @@index([code])
+}
+
+model ExerciceComptable {
+  id        String              @id @default(cuid())
+  annee     Int                 @unique
+  dateDebut DateTime
+  dateFin   DateTime
+  cloture   Boolean             @default(false)
+  ecritures EcritureComptable[]
+  budgets   Budget[]
+  createdAt DateTime            @default(now())
+
+  @@index([annee])
+}
+
+model EcritureComptable {
+  id         String            @id @default(cuid())
+  journal    Journal           @relation(fields: [journalId], references: [id])
+  journalId  String
+  compte     CompteComptable   @relation(fields: [compteId], references: [id])
+  compteId   String
+  exercice   ExerciceComptable @relation(fields: [exerciceId], references: [id])
+  exerciceId String
+
+  dateEcriture DateTime
+  libelle      String
+  debit        Decimal  @default(0) @db.Decimal(15, 2)
+  credit       Decimal  @default(0) @db.Decimal(15, 2)
+  pieceRef     String? // Référence pièce justificative
+
+  // Analytique
+  centreAnalytique   CentreAnalytique? @relation(fields: [centreAnalytiqueId], references: [id])
+  centreAnalytiqueId String?
+
+  valide      Boolean  @default(false)
+  createdBy   User     @relation(fields: [createdById], references: [id])
+  createdById String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([journalId])
+  @@index([compteId])
+  @@index([exerciceId])
+  @@index([dateEcriture])
+}
+
+model CentreAnalytique {
+  id        String              @id @default(cuid())
+  code      String              @unique
+  libelle   String
+  type      String // SERVICE, MEDECIN, ACTE
+  actif     Boolean             @default(true)
+  ecritures EcritureComptable[]
+  createdAt DateTime            @default(now())
+
+  @@index([code])
+}
+
+model Budget {
+  id         String            @id @default(cuid())
+  exercice   ExerciceComptable @relation(fields: [exerciceId], references: [id])
+  exerciceId String
+  compte     String // Numéro de compte
+  libelle    String
+  montant    Decimal           @db.Decimal(15, 2)
+  type       String // PREVISIONNEL, REEL
+  mois       Int? // 1-12 pour budget mensuel
+  createdAt  DateTime          @default(now())
+
+  @@index([exerciceId])
+}
+
+// ============================================================================
+// 🏥 DOSSIER PATIENT ÉLECTRONIQUE (DPE)
+// ============================================================================
+
+model Patient {
+  id                    String   @id @default(cuid())
+  numeroPatient         String   @unique // Auto-généré: PAT-2026-0001
+  nom                   String
+  prenom                String
+  dateNaissance         DateTime
+  sexe                  String // M, F
+  telephone             String
+  email                 String?
+  adresse               String?
+  ville                 String?
+  profession            String?
+  situationMatrimoniale String? // CELIBATAIRE, MARIE, DIVORCE, VEUF
+
+  // Couverture sociale
+  assureur       String?
+  numeroAssure   String?
+  tauxCouverture Decimal? @db.Decimal(5, 2)
+
+  // Contacts d'urgence
+  contactUrgenceNom  String?
+  contactUrgenceTel  String?
+  contactUrgenceLien String?
+
+  // Relations
+  antecedents       Antecedent[]
+  allergies         Allergie[]
+  vaccinations      Vaccination[]
+  consultations     Consultation[]
+  rendezvous        RendezVous[]
+  factures          Facture[]
+  dispensations     Dispensation[]
+  hospitalisations  Hospitalisation[]
+  interventions     Intervention[]
+  dossiersMaternite DossierMaternite[]
+  documentsGED      DocumentGED[]
+
+  // Métadonnées
+  photo     String? // URL Cloudinary
+  actif     Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([numeroPatient])
+  @@index([nom, prenom])
+  @@index([telephone])
+}
+
+model Antecedent {
+  id          String    @id @default(cuid())
+  patient     Patient   @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  patientId   String
+  type        String // MEDICAL, CHIRURGICAL, FAMILIAL
+  description String    @db.Text
+  date        DateTime?
+  createdAt   DateTime  @default(now())
+
+  @@index([patientId])
+}
+
+model Allergie {
+  id        String   @id @default(cuid())
+  patient   Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  patientId String
+  type      String // MEDICAMENT, ALIMENTAIRE, ENVIRONNEMENT, AUTRE
+  allergene String
+  severite  String // LEGERE, MODEREE, SEVERE
+  reaction  String?  @db.Text
+  createdAt DateTime @default(now())
+
+  @@index([patientId])
+}
+
+model Vaccination {
+  id         String    @id @default(cuid())
+  patient    Patient   @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  patientId  String
+  vaccin     String
+  dateVaccin DateTime
+  rappel     DateTime?
+  lot        String?
+  createdAt  DateTime  @default(now())
+
+  @@index([patientId])
+}
+
+// ============================================================================
+// 🩺 CONSULTATIONS & ACTES MÉDICAUX
+// ============================================================================
+
+model RendezVous {
+  id        String  @id @default(cuid())
+  patient   Patient @relation(fields: [patientId], references: [id])
+  patientId String
+  medecin   User    @relation(fields: [medecinId], references: [id])
+  medecinId String
+
+  dateHeure DateTime
+  duree     Int      @default(30) // minutes
+  motif     String   @db.Text
+  statut    String   @default("PLANIFIE") // PLANIFIE, CONFIRME, ANNULE, TERMINE
+  notes     String?  @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([patientId])
+  @@index([medecinId])
+  @@index([dateHeure])
+  @@index([statut])
+}
+
+model Consultation {
+  id               String   @id @default(cuid())
+  patient          Patient  @relation(fields: [patientId], references: [id])
+  patientId        String
+  medecin          User     @relation(fields: [medecinId], references: [id])
+  medecinId        String
+  dateConsultation DateTime @default(now())
+
+  // Examen clinique
+  motifConsultation String  @db.Text
+  anamnese          String? @db.Text
+  examenClinique    String? @db.Text
+  diagnostic        String? @db.Text
+  planTraitement    String? @db.Text
+
+  // Constantes vitales
+  poids              Decimal? @db.Decimal(5, 2)
+  taille             Decimal? @db.Decimal(5, 2)
+  temperature        Decimal? @db.Decimal(4, 1)
+  tensionSystolique  Int?
+  tensionDiastolique Int?
+  frequenceCardiaque Int?
+  saturationOxygene  Int?
+
+  // Données de spécialités (Digital Advance)
+  donneesSpecialite Json? // Ex: Score ECG, Odontogramme, Courbe de croissance
+
+  // Relations
+  prescriptions Prescription[]
+  actesRealises ActeRealise[]
+
+  // Facturation
+  facture   Facture? @relation(fields: [factureId], references: [id])
+  factureId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([patientId])
+  @@index([medecinId])
+  @@index([dateConsultation])
+}
+
+model Prescription {
+  id             String       @id @default(cuid())
+  consultation   Consultation @relation(fields: [consultationId], references: [id], onDelete: Cascade)
+  consultationId String
+
+  medicament   String // Nom du médicament
+  dosage       String // Ex: "500mg"
+  forme        String // Comprimé, Sirop, Injectable, etc.
+  posologie    String // Ex: "1 cp matin et soir"
+  duree        String // Ex: "7 jours"
+  quantite     Int
+  instructions String? @db.Text
+
+  createdAt DateTime @default(now())
+
+  @@index([consultationId])
+}
+
+model NomenclatureActe {
+  id         String        @id @default(cuid())
+  code       String        @unique
+  libelle    String
+  specialite String // GENERALISTE, DENTAIRE, RADIOLOGIE, etc.
+  tarif      Decimal       @db.Decimal(10, 2)
+  duree      Int? // Durée estimée en minutes
+  actif      Boolean       @default(true)
+  actes      ActeRealise[]
+  createdAt  DateTime      @default(now())
+
+  @@index([code])
+  @@index([specialite])
+}
+
+model ActeRealise {
+  id             String           @id @default(cuid())
+  consultation   Consultation     @relation(fields: [consultationId], references: [id], onDelete: Cascade)
+  consultationId String
+  acte           NomenclatureActe @relation(fields: [acteId], references: [id])
+  acteId         String
+
+  quantite Int     @default(1)
+  tarif    Decimal @db.Decimal(10, 2)
+  montant  Decimal @db.Decimal(10, 2)
+  notes    String? @db.Text
+
+  // Résultats (Labo, Radio, etc.)
+  resultat ResultatExamen?
+
+  createdAt DateTime @default(now())
+
+  @@index([consultationId])
+  @@index([acteId])
+}
+
+model ResultatExamen {
+  id            String      @id @default(cuid())
+  acteRealise   ActeRealise @relation(fields: [acteRealiseId], references: [id], onDelete: Cascade)
+  acteRealiseId String      @unique
+
+  valeurs     Json? // Pour les résultats de labo structurés: { "glycemie": "1.2", "unite": "g/L" }
+  conclusion  String?  @db.Text
+  compteRendu String?  @db.Text // Pour la radio
+  images      String[] // URLs des images (GED)
+
+  dateExamen     DateTime  @default(now())
+  validePar      String?
+  dateValidation DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([acteRealiseId])
+}
+
+// ============================================================================
+// 💊 PHARMACIE & GESTION DES STOCKS
+// ============================================================================
+
+model Medicament {
+  id            String  @id @default(cuid())
+  codeANIS      String? @unique // Code ANIS Sénégal
+  dci           String // Dénomination Commune Internationale
+  nomCommercial String
+  forme         String // Comprimé, Sirop, Injectable, etc.
+  dosage        String
+  fabricant     String?
+  prixAchat     Decimal @db.Decimal(10, 2)
+  prixVente     Decimal @db.Decimal(10, 2)
+  stockMinimum  Int     @default(10)
+  actif         Boolean @default(true)
+
+  stocks        Stock[]
+  mouvements    MouvementStock[]
+  dispensations Dispensation[]
+
+  // Relations Procurement
+  commandes LigneCommandePharmacie[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([codeANIS])
+  @@index([dci])
+  @@index([nomCommercial])
+}
+
+model Fournisseur {
+  id        String  @id @default(cuid())
+  nom       String  @unique
+  code      String? @unique
+  contact   String?
+  email     String?
+  telephone String?
+  adresse   String?
+  ninea     String? // Numéro d'Identification Nationale des Entreprises et des Associations (Sénégal)
+  rccm      String? // Registre du Commerce et du Crédit Mobilier
+
+  commandes CommandePharmacie[]
+  createdAt DateTime            @default(now())
+  updatedAt DateTime            @updatedAt
+}
+
+model CommandePharmacie {
+  id             String      @id @default(cuid())
+  numeroCommande String      @unique // Ex: BC-PH-2026-0001
+  fournisseur    Fournisseur @relation(fields: [fournisseurId], references: [id])
+  fournisseurId  String
+
+  dateCommande  DateTime  @default(now())
+  dateLivraison DateTime?
+  montantTotal  Decimal   @db.Decimal(15, 2)
+  statut        String    @default("BROUILLON") // BROUILLON, EN_ATTENTE, PARTIELLE, LIVREE, ANNULEE
+
+  lignes LigneCommandePharmacie[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([fournisseurId])
+  @@index([numeroCommande])
+}
+
+model LigneCommandePharmacie {
+  id           String            @id @default(cuid())
+  commande     CommandePharmacie @relation(fields: [commandeId], references: [id], onDelete: Cascade)
+  commandeId   String
+  medicament   Medicament        @relation(fields: [medicamentId], references: [id])
+  medicamentId String
+
+  quantiteCommandee Int
+  quantiteRecue     Int     @default(0)
+  prixUnitaire      Decimal @db.Decimal(10, 2)
+
+  createdAt DateTime @default(now())
+
+  @@index([commandeId])
+  @@index([medicamentId])
+}
+
+model Stock {
+  id           String     @id @default(cuid())
+  medicament   Medicament @relation(fields: [medicamentId], references: [id])
+  medicamentId String
+
+  lot            String
+  datePeremption DateTime
+  quantite       Int
+  emplacement    String? // Rayon, Étagère
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([medicamentId])
+  @@index([datePeremption])
+}
+
+model MouvementStock {
+  id           String     @id @default(cuid())
+  medicament   Medicament @relation(fields: [medicamentId], references: [id])
+  medicamentId String
+
+  type        String // ENTREE, SORTIE, AJUSTEMENT, PEREMPTION
+  quantite    Int
+  motif       String  @db.Text
+  reference   String? // Bon de commande, facture, etc.
+  utilisateur String
+
+  createdAt DateTime @default(now())
+
+  @@index([medicamentId])
+  @@index([type])
+  @@index([createdAt])
+}
+
+model Dispensation {
+  id           String     @id @default(cuid())
+  medicament   Medicament @relation(fields: [medicamentId], references: [id])
+  medicamentId String
+  patient      Patient    @relation(fields: [patientId], references: [id])
+  patientId    String
+
+  quantite     Int
+  prescription String? // Référence prescription
+  pharmacien   String
+
+  createdAt DateTime @default(now())
+
+  @@index([medicamentId])
+  @@index([patientId])
+  @@index([createdAt])
+}
+
+// ============================================================================
+// 💵 FACTURATION & PAIEMENTS
+// ============================================================================
+
+model Facture {
+  id            String  @id @default(cuid())
+  numeroFacture String  @unique // Auto-généré: FAC-2026-0001
+  patient       Patient @relation(fields: [patientId], references: [id])
+  patientId     String
+
+  dateFacture  DateTime @default(now())
+  dateEcheance DateTime
+
+  // Montants
+  montantHT  Decimal @db.Decimal(10, 2)
+  montantTVA Decimal @default(0) @db.Decimal(10, 2)
+  montantTTC Decimal @db.Decimal(10, 2)
+
+  // Prise en charge
+  partAssurance Decimal @default(0) @db.Decimal(10, 2)
+  partPatient   Decimal @db.Decimal(10, 2)
+
+  // Statut
+  statut String @default("IMPAYEE") // IMPAYEE, PARTIELLE, PAYEE, ANNULEE
+
+  // Relations
+  lignes        LigneFacture[]
+  paiements     Paiement[]
+  consultations Consultation[]
+
+  // Comptabilité
+  ecritureComptableId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([numeroFacture])
+  @@index([patientId])
+  @@index([statut])
+  @@index([dateFacture])
+}
+
+model LigneFacture {
+  id        String  @id @default(cuid())
+  facture   Facture @relation(fields: [factureId], references: [id], onDelete: Cascade)
+  factureId String
+
+  designation  String
+  quantite     Int     @default(1)
+  prixUnitaire Decimal @db.Decimal(10, 2)
+  montant      Decimal @db.Decimal(10, 2)
+
+  createdAt DateTime @default(now())
+
+  @@index([factureId])
+}
+
+model Paiement {
+  id        String  @id @default(cuid())
+  facture   Facture @relation(fields: [factureId], references: [id])
+  factureId String
+
+  datePaiement DateTime @default(now())
+  montant      Decimal  @db.Decimal(10, 2)
+  modePaiement String // ESPECES, CARTE, VIREMENT, CHEQUE, MOBILE_MONEY
+  reference    String?
+  notes        String?  @db.Text
+
+  createdBy   User     @relation(fields: [createdById], references: [id])
+  createdById String
+  createdAt   DateTime @default(now())
+
+  @@index([factureId])
+  @@index([datePaiement])
+}
+
+// ============================================================================
+// 🏥 HOSPITALISATION & LITS
+// ============================================================================
+
+model Lit {
+  id               String            @id @default(cuid())
+  numero           String            @unique
+  chambre          String
+  service          String // MEDECINE, CHIRURGIE, MATERNITE
+  categorie        String // VIP, STANDARD, BOX
+  prixJournalier   Decimal           @db.Decimal(10, 2)
+  occupe           Boolean           @default(false)
+  hospitalisations Hospitalisation[]
+  createdAt        DateTime          @default(now())
+}
+
+model Hospitalisation {
+  id        String  @id @default(cuid())
+  patient   Patient @relation(fields: [patientId], references: [id])
+  patientId String
+  lit       Lit     @relation(fields: [litId], references: [id])
+  litId     String
+
+  dateEntree       DateTime  @default(now())
+  dateSortie       DateTime?
+  motif            String    @db.Text
+  diagnosticEntree String?   @db.Text
+  diagnosticSortie String?   @db.Text
+  statut           String    @default("EN_COURS") // EN_COURS, SORTI, TRANSFERE
+
+  observations ObservationInfirmier[]
+  createdAt    DateTime               @default(now())
+  updatedAt    DateTime               @updatedAt
+}
+
+model ObservationInfirmier {
+  id                String          @id @default(cuid())
+  hospitalisation   Hospitalisation @relation(fields: [hospitalisationId], references: [id])
+  hospitalisationId String
+  infirmier         User            @relation(fields: [infirmierId], references: [id])
+  infirmierId       String
+
+  pressionArterielle String?
+  temperature        Decimal? @db.Decimal(4, 1)
+  note               String   @db.Text
+  dateHeure          DateTime @default(now())
+}
+
+// ============================================================================
+// 🔪 BLOC OPÉRATOIRE & CHIRURGIE
+// ============================================================================
+
+model Intervention {
+  id             String  @id @default(cuid())
+  patient        Patient @relation(fields: [patientId], references: [id])
+  patientId      String
+  chirurgien     User    @relation("Chirurgien", fields: [chirurgienId], references: [id])
+  chirurgienId   String
+  anesthesiste   User?   @relation("Anesthesiste", fields: [anesthesisteId], references: [id])
+  anesthesisteId String?
+
+  typeIntervention String
+  dateHeure        DateTime
+  salle            String
+  statut           String   @default("PROGRAMMEE") // PROGRAMMEE, EN_COURS, TERMINEE, ANNULEE
+
+  protocoleOp    String? @db.Text // Rapport complet
+  typeAnesthesie String?
+  duree          Int? // en minutes
+
+  createdAt DateTime @default(now())
+}
+
+// ============================================================================
+// 👶 MATERNITÉ & PÉDIATRIE
+// ============================================================================
+
+model DossierMaternite {
+  id        String  @id @default(cuid())
+  patient   Patient @relation(fields: [patientId], references: [id])
+  patientId String
+
+  dateDebutGrossesse DateTime
+  parite             Int
+  gestite            Int
+  groupageRhesus     String
+
+  examensPrenataux Json? // Suivi des visites
+  accouchement     Json? // Détails accouchement
+
+  nouveauNes NouveauNe[]
+  createdAt  DateTime    @default(now())
+}
+
+model NouveauNe {
+  id                 String           @id @default(cuid())
+  dossierMaternite   DossierMaternite @relation(fields: [dossierMaterniteId], references: [id])
+  dossierMaterniteId String
+
+  nom                String
+  prenom             String
+  dateHeureNaissance DateTime
+  sexe               String
+  poids              Decimal  @db.Decimal(5, 3) // en kg
+  scoreApgar         Int?
+
+  createdAt DateTime @default(now())
+}
+
+// ============================================================================
+// 🧪 RÉACTIFS & CONSOMMABLES (Stocks Logistiques)
+// ============================================================================
+
+model ArticleLogistique {
+  id          String  @id @default(cuid())
+  designation String
+  categorie   String // REACTIF, CONSOMMABLE_BIO, CONSOMMABLE_CHIR
+  famille     String?
+  uniteMesure String // Flacon, Boite, Unité
+  stockAlerte Int     @default(5)
+
+  mouvements  MouvementLogistique[]
+  stockActuel Int                   @default(0)
+  createdAt   DateTime              @default(now())
+}
+
+model MouvementLogistique {
+  id        String            @id @default(cuid())
+  article   ArticleLogistique @relation(fields: [articleId], references: [id])
+  articleId String
+
+  type                String // ENTREE, SORTIE, CONSOMMATION
+  quantite            Int
+  serviceDestinataire String? // LABO, CHIRURGIE, MATERNITE
+  motif               String?
+  utilisateur         String
+
+  createdAt DateTime @default(now())
+}
+
+// ============================================================================
+// 📁 GED MULTIMODULE
+// ============================================================================
+
+model DocumentGED {
+  id        String   @id @default(cuid())
+  patient   Patient? @relation(fields: [patientId], references: [id])
+  patientId String?
+
+  titre    String
+  type     String // SCAN, PDF, IMAGE, RESULTAT
+  url      String // Lien vers stockage (S3/Local)
+  module   String // MEDICAL, LABO, RADIO, FACTURATION
+  metadata Json? // Tags, description additionnelle
+
+  createdAt DateTime @default(now())
+
+  @@index([patientId])
+  @@index([module])
+}
+
+// ============================================================================
+// 👥 RESSOURCES HUMAINES
+// ============================================================================
+
+model Employe {
+  id            String   @id @default(cuid())
+  user          User?    @relation(fields: [userId], references: [id])
+  userId        String?  @unique
+  matricule     String   @unique // EMP-2026-0001
+  nom           String
+  prenom        String
+  dateNaissance DateTime
+  sexe          String // M, F
+  telephone     String
+  email         String?
+  adresse       String?
+
+  categorie    String // MEDICAL, PARAMEDICAL, ADMINISTRATIF, TECHNIQUE
+  fonction     String
+  specialite   String?
+  dateEmbauche DateTime
+  typeContrat  String // CDI, CDD, VACATAIRE
+  salaireBrut  Decimal  @db.Decimal(10, 2)
+
+  conges    Conge[]
+  plannings Planning[]
+
+  actif     Boolean        @default(true)
+  bulletins BulletinPaie[]
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+
+  @@index([matricule])
+  @@index([categorie])
+}
+
+model Conge {
+  id        String  @id @default(cuid())
+  employe   Employe @relation(fields: [employeId], references: [id])
+  employeId String
+
+  type      String // ANNUEL, MALADIE, MATERNITE
+  dateDebut DateTime
+  dateFin   DateTime
+  nbJours   Int
+  motif     String?  @db.Text
+  statut    String   @default("EN_ATTENTE") // EN_ATTENTE, APPROUVE, REFUSE
+
+  createdAt DateTime @default(now())
+
+  @@index([employeId])
+}
+
+model BulletinPaie {
+  id        String  @id @default(cuid())
+  employe   Employe @relation(fields: [employeId], references: [id])
+  employeId String
+
+  periode      String // Format "MM/YYYY"
+  dateEmission DateTime @default(now())
+
+  salaireBase   Decimal @db.Decimal(10, 2)
+  totalPrimes   Decimal @db.Decimal(10, 2)
+  totalRetenues Decimal @db.Decimal(10, 2)
+  salaireNet    Decimal @db.Decimal(10, 2)
+
+  lignes LigneBulletin[]
+  statut String          @default("BROUILLON") // BROUILLON, VALIDE, PAYE
+
+  @@index([employeId])
+  @@index([periode])
+}
+
+model LigneBulletin {
+  id         String       @id @default(cuid())
+  bulletin   BulletinPaie @relation(fields: [bulletinId], references: [id], onDelete: Cascade)
+  bulletinId String
+
+  libelle String
+  type    String // GAIN, RETENUE
+  base    Decimal? @db.Decimal(10, 2)
+  taux    Decimal? @db.Decimal(5, 2)
+  montant Decimal  @db.Decimal(10, 2)
+}
+
+model Planning {
+  id        String  @id @default(cuid())
+  employe   Employe @relation(fields: [employeId], references: [id])
+  employeId String
+
+  date       DateTime
+  heureDebut String
+  heureFin   String
+  type       String // NORMAL, GARDE, ASTREINTE
+
+  createdAt DateTime @default(now())
+
+  @@index([employeId])
+  @@index([date])
+}
+
+// ============================================================================
+// 🛠️ GMAO (MAINTENANCE BIO-MÉDICALE)
+// ============================================================================
+
+model Equipement {
+  id                       String    @id @default(cuid())
+  code                     String    @unique // Ex: EQU-RAD-001
+  nom                      String
+  type                     String // SCANNER, IRM, AUTOMATE, etc.
+  marque                   String?
+  modele                   String?
+  serie                    String?   @unique
+  dateAchat                DateTime?
+  dateDerniereMaintenace   DateTime?
+  dateProchaineMaintenance DateTime?
+  statut                   String    @default("OPERATIONNEL") // OPERATIONNEL, EN_PANNE, EN_MAINTENANCE, REFORME
+  localisation             String? // Service, Salle
+
+  tickets   TicketMaintenance[]
+  createdAt DateTime            @default(now())
+  updatedAt DateTime            @updatedAt
+
+  @@index([code])
+}
+
+model TicketMaintenance {
+  id           String     @id @default(cuid())
+  equipement   Equipement @relation(fields: [equipementId], references: [id])
+  equipementId String
+
+  type        String // PREVENTIF, CURATIF, CALIBRATION
+  priorite    String // BASSE, MOYENNE, HAUTE, CRITIQUE
+  objet       String
+  description String @db.Text
+  statut      String @default("OUVERT") // OUVERT, EN_COURS, RESOLU, FERME
+
+  intervenant    String?
+  dateResolution DateTime?
+  coutEstime     Decimal?  @db.Decimal(12, 2)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([equipementId])
+}
+
+// ============================================================================
+// 🛡️ HSE & CONTRÔLE QUALITÉ
+// ============================================================================
+
+model EvenementIndesirable {
+  id            String   @id @default(cuid())
+  dateEvenement DateTime @default(now())
+  service       String?
+  type          String // CHUTE, ERREUR_MEDICAMENTEUSE, INFECTION, etc.
+  gravite       String // MINEURE, MODEREE, SEVERE, CRITIQUE
+  description   String   @db.Text
+  mesuresPrises String?  @db.Text
+  statut        String   @default("DECLARE") // DECLARE, EN_ANALYSE, CLÔTURÉ
+
+  declaréPar String?
+  patientId   String?
+
+  createdAt DateTime @default(now())
+}
+
+model AuditQualite {
+  id           String   @id @default(cuid())
+  dateAudit    DateTime @default(now())
+  service      String
+  auditeur     String
+  type         String // HYGIENE, DOSSIER_PATIENT, SECURITE
+  score        Int // 0-100
+  observations String?  @db.Text
+
+  createdAt DateTime @default(now())
+}
+
+// ============================================================================
+// ⚙️ CONFIGURATION SYSTÈME
+// ============================================================================
+
+model Configuration {
+  id          String   @id @default(cuid())
+  cle         String   @unique
+  valeur      String   @db.Text
+  type        String // STRING, NUMBER, BOOLEAN, JSON
+  module      String // GENERAL, COMPTABILITE, MEDICAL, PHARMACIE
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([module])
+}
