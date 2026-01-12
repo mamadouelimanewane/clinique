@@ -1,7 +1,105 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Activity, CreditCard, Users, DollarSign } from "lucide-react"
+import { Activity, CreditCard, Users, DollarSign, Calendar } from "lucide-react"
+import { prisma } from "@/lib/prisma"
+import { startOfDay, endOfDay, subDays, format } from "date-fns"
+import { Overview } from "@/components/dashboard/overview"
 
-export default function DashboardPage() {
+async function getDashboardData() {
+    const today = new Date()
+    const startOfToday = startOfDay(today)
+    const endOfToday = endOfDay(today)
+
+    // 1. Consultations (Jour)
+    const consultationsCount = await prisma.consultation.count({
+        where: {
+            dateConsultation: {
+                gte: startOfToday,
+                lte: endOfToday,
+            },
+        },
+    })
+
+    // 2. Chiffre d'Affaires
+    const aggregateFactures = await prisma.facture.aggregate({
+        _sum: {
+            montantTTC: true,
+        },
+        where: {
+            statut: {
+                not: "ANNULEE",
+            },
+        },
+    })
+    const chiffreAffaires = Number(aggregateFactures._sum.montantTTC || 0)
+
+    // 3. Patients Actifs
+    const patientsCount = await prisma.patient.count({
+        where: {
+            actif: true,
+        },
+    })
+
+    // 4. Factures Impayées
+    const unpaidFacturesCount = await prisma.facture.count({
+        where: {
+            statut: "IMPAYEE",
+        },
+    })
+
+    // 5. Rendez-vous Récents
+    const recentRDVs = await prisma.rendezVous.findMany({
+        take: 5,
+        orderBy: {
+            dateHeure: "desc",
+        },
+        include: {
+            patient: true,
+            medecin: true,
+        },
+    })
+
+    // 6. Données pour le graphique (7 derniers jours)
+    const last7Days = Array.from({ length: 7 }).map((_, i) => {
+        const date = subDays(today, i)
+        return {
+            start: startOfDay(date),
+            end: endOfDay(date),
+            label: format(date, "dd/MM"),
+        }
+    }).reverse()
+
+    const graphData = await Promise.all(
+        last7Days.map(async (day) => {
+            const count = await prisma.consultation.count({
+                where: {
+                    dateConsultation: {
+                        gte: day.start,
+                        lte: day.end,
+                    },
+                },
+            })
+            return {
+                name: day.label,
+                total: count,
+            }
+        })
+    )
+
+    return {
+        stats: {
+            consultationsCount,
+            chiffreAffaires,
+            patientsCount,
+            unpaidFacturesCount,
+        },
+        recentRDVs,
+        graphData,
+    }
+}
+
+export default async function DashboardPage() {
+    const data = await getDashboardData()
+
     return (
         <div className="flex-1 space-y-4">
             <h2 className="text-3xl font-bold tracking-tight">Tableau de Bord</h2>
@@ -14,9 +112,9 @@ export default function DashboardPage() {
                         <Activity className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">12</div>
+                        <div className="text-2xl font-bold">{data.stats.consultationsCount}</div>
                         <p className="text-xs text-muted-foreground">
-                            +2 depuis la dernière heure
+                            Aujourd'hui
                         </p>
                     </CardContent>
                 </Card>
@@ -28,9 +126,9 @@ export default function DashboardPage() {
                         <DollarSign className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">450.000 CFA</div>
+                        <div className="text-2xl font-bold">{data.stats.chiffreAffaires.toLocaleString()} CFA</div>
                         <p className="text-xs text-muted-foreground">
-                            +20.1% par rapport à hier
+                            Cumul total (facturé)
                         </p>
                     </CardContent>
                 </Card>
@@ -42,9 +140,9 @@ export default function DashboardPage() {
                         <Users className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">+573</div>
+                        <div className="text-2xl font-bold">{data.stats.patientsCount}</div>
                         <p className="text-xs text-muted-foreground">
-                            +201 depuis le mois dernier
+                            Dossiers ouverts
                         </p>
                     </CardContent>
                 </Card>
@@ -56,9 +154,9 @@ export default function DashboardPage() {
                         <CreditCard className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">8</div>
+                        <div className="text-2xl font-bold">{data.stats.unpaidFacturesCount}</div>
                         <p className="text-xs text-muted-foreground">
-                            Action requise
+                            En attente de paiement
                         </p>
                     </CardContent>
                 </Card>
@@ -66,12 +164,10 @@ export default function DashboardPage() {
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
                 <Card className="col-span-4">
                     <CardHeader>
-                        <CardTitle>Aperçu des Consultations</CardTitle>
+                        <CardTitle>Activités (7 derniers jours)</CardTitle>
                     </CardHeader>
                     <CardContent className="pl-2">
-                        <div className="h-[200px] flex items-center justify-center text-muted-foreground bg-slate-50/50 rounded-md">
-                            Graphique à venir avec Recharts...
-                        </div>
+                        <Overview data={data.graphData} />
                     </CardContent>
                 </Card>
                 <Card className="col-span-3">
@@ -80,24 +176,30 @@ export default function DashboardPage() {
                     </CardHeader>
                     <CardContent>
                         <div className="space-y-8">
-                            <div className="flex items-center">
-                                <div className="ml-4 space-y-1">
-                                    <p className="text-sm font-medium leading-none">Moussa Diop</p>
-                                    <p className="text-sm text-muted-foreground">
-                                        Dr. Amadou (Généraliste) - 14:00
-                                    </p>
+                            {data.recentRDVs.map((rdv) => (
+                                <div key={rdv.id} className="flex items-center">
+                                    <Calendar className="h-4 w-4 text-muted-foreground mr-2" />
+                                    <div className="ml-2 space-y-1">
+                                        <p className="text-sm font-medium leading-none">
+                                            {rdv.patient.prenom} {rdv.patient.nom}
+                                        </p>
+                                        <p className="text-sm text-muted-foreground">
+                                            {rdv.medecin.nom} - {format(rdv.dateHeure, "HH:mm")}
+                                        </p>
+                                    </div>
+                                    <div className={`ml-auto font-medium text-sm ${rdv.statut === "PLANIFIE" ? "text-blue-500" :
+                                            rdv.statut === "TERMINE" ? "text-green-500" :
+                                                rdv.statut === "ANNULE" ? "text-red-500" : "text-amber-500"
+                                        }`}>
+                                        {rdv.statut}
+                                    </div>
                                 </div>
-                                <div className="ml-auto font-medium text-emerald-600">Confirmé</div>
-                            </div>
-                            <div className="flex items-center">
-                                <div className="ml-4 space-y-1">
-                                    <p className="text-sm font-medium leading-none">Fatou Ndiaye</p>
-                                    <p className="text-sm text-muted-foreground">
-                                        Dr. Sow (Dentiste) - 15:30
-                                    </p>
+                            ))}
+                            {data.recentRDVs.length === 0 && (
+                                <div className="text-sm text-muted-foreground text-center py-4">
+                                    Aucun rendez-vous récent
                                 </div>
-                                <div className="ml-auto font-medium text-amber-600">En attente</div>
-                            </div>
+                            )}
                         </div>
                     </CardContent>
                 </Card>
