@@ -1,7 +1,7 @@
 import { jsPDF } from "jspdf"
 import "jspdf-autotable"
 
-export async function generateConsultationReport(consultationData: any) {
+export async function generateConsultationReport(consultationData: Record<string, any>) {
     const doc = new jsPDF()
 
     // Header

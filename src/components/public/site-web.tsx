@@ -21,7 +21,7 @@ export default function PublicWebsite() {
                     <div className="hidden md:flex items-center gap-8 text-sm font-bold text-slate-500">
                         <Link href="#" className="hover:text-indigo-600 transition-colors">Accueil</Link>
                         <Link href="#" className="hover:text-indigo-600 transition-colors">Spécialités</Link>
-                        <Link href="#" className="hover:text-indigo-600 transition-colors">L'Équipe</Link>
+                        <Link href="#" className="hover:text-indigo-600 transition-colors">L&apos;Équipe</Link>
                         <Link href="#" className="hover:text-indigo-600 transition-colors">Contact</Link>
                     </div>
                     <Button className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-full px-6">
@@ -35,7 +35,7 @@ export default function PublicWebsite() {
                 <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     <div className="space-y-8 relative z-10 text-center lg:text-left">
                         <Badge className="bg-indigo-50 text-indigo-700 border-indigo-100 px-4 py-1 text-xs font-bold uppercase tracking-widest">
-                            L'excellence médicale au cœur du Fouta
+                            L&apos;excellence médicale au cœur du Fouta
                         </Badge>
                         <h1 className="text-5xl md:text-7xl font-black leading-tight tracking-tighter text-slate-900">
                             Votre santé méritait <span className="text-indigo-600">le meilleur</span> de la technologie.
@@ -103,7 +103,7 @@ export default function PublicWebsite() {
                             <Badge className="bg-indigo-50 text-indigo-700">Expertise</Badge>
                             <h2 className="text-4xl font-black tracking-tight">Nos Praticiens Référents</h2>
                         </div>
-                        <Button variant="ghost" className="text-indigo-600 font-bold">Voir toute l'équipe <ArrowRight className="ml-2 h-4 w-4" /></Button>
+                        <Button variant="ghost" className="text-indigo-600 font-bold">Voir toute l&apos;équipe <ArrowRight className="ml-2 h-4 w-4" /></Button>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -141,7 +141,7 @@ export default function PublicWebsite() {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {[
                             { title: "Prévention Cardiovasculaire : Les nouveaux algorithmes", date: "12 Déc. 2025", cat: "Cardiologie" },
-                            { title: "L'importance du suivi pédiatrique digital", date: "05 Jan. 2026", cat: "Pédiatrie" },
+                            { title: "L&apos;importance du suivi pédiatrique digital", date: "05 Jan. 2026", cat: "Pédiatrie" },
                             { title: "Cataracte : Pourquoi choisir la chirurgie assistée ?", date: "08 Jan. 2026", cat: "Ophtalmologie" },
                         ].map((post, i) => (
                             <Card key={i} className="bg-white/10 border-white/20 backdrop-blur-lg hover:bg-white/20 transition-all cursor-pointer p-8 rounded-3xl">
@@ -173,8 +173,8 @@ export default function PublicWebsite() {
                         {[
                             { title: "Gynécologie Advance", icon: HeartPulse, desc: "Suivi obstétrical haute définition et diagnostic intelligent.", color: "bg-pink-50 text-pink-600" },
                             { title: "Cardiologie Digitale", icon: Activity, desc: "Bilan complet SCORE2 et monitoring cardiaque temps réel.", color: "bg-indigo-50 text-indigo-600" },
-                            { title: "Ophtalmologie IOL", icon: ShieldCheck, desc: "Calcul d'implant et chirurgie de pointe assistée par ordinateur.", color: "bg-emerald-50 text-emerald-600" },
-                            { title: "Dermatologie IA", icon: UserCircle2, desc: "Dépistage intelligent des lésions cutanées par analyse d'image.", color: "bg-orange-50 text-orange-600" },
+                            { title: "Ophtalmologie IOL", icon: ShieldCheck, desc: "Calcul d&apos;implant et chirurgie de pointe assistée par ordinateur.", color: "bg-emerald-50 text-emerald-600" },
+                            { title: "Dermatologie IA", icon: UserCircle2, desc: "Dépistage intelligent des lésions cutanées par analyse d&apos;image.", color: "bg-orange-50 text-orange-600" },
                             { title: "Laboratoire 2.0", icon: Clock, desc: "Analyses automatisées et résultats accessibles via portail patient.", color: "bg-blue-50 text-blue-600" },
                             { title: "Accueil & Confort", icon: MapPin, desc: "Un environnement moderne et serein pour votre rétablissement.", color: "bg-slate-50 text-slate-600" },
                         ].map((s, i) => (

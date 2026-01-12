@@ -4,13 +4,20 @@ import { useState, useEffect } from "react"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Mic2, Activity, Brain, TrendingUp, AlertTriangle, CheckCircle2 } from "lucide-react"
-import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip } from "recharts"
+import { Mic2, Activity, Brain, AlertTriangle, CheckCircle2 } from "lucide-react"
+import { ResponsiveContainer, AreaChart, Area } from "recharts"
 import { cn } from "@/lib/utils"
+
+type Score = {
+    stress: number
+    energy: number
+    mentalHealth: string
+    markers: string[]
+}
 
 export function VoiceBiomarkersAi() {
     const [analyzing, setAnalyzing] = useState(false)
-    const [score, setScore] = useState<any>(null)
+    const [score, setScore] = useState<Score | null>(null)
     const [waveData, setWaveData] = useState<{ time: number, value: number }[]>([])
     const [isRecording, setIsRecording] = useState(false)
     const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null)
@@ -145,7 +152,7 @@ export function VoiceBiomarkersAi() {
                                     <span className="text-sm font-black text-slate-900">{score.mentalHealth}</span>
                                 </>
                             ) : (
-                                <p className="text-xs text-slate-300 font-bold italic">En attente d'échantillon...</p>
+                                <p className="text-xs text-slate-300 font-bold italic">En attente d&apos;échantillon...</p>
                             )}
                         </div>
                     </div>

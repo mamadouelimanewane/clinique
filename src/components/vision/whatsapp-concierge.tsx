@@ -1,12 +1,12 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { MessageSquare, Send, Bot, User, Phone, Calendar, AlertCircle, CheckCircle2 } from "lucide-react"
+import { Send, Bot, Phone, Calendar, CheckCircle2 } from "lucide-react"
 import { toast } from "sonner"
 
 type Message = {

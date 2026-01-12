@@ -1,12 +1,11 @@
 "use client"
 
 import { useState } from "react"
-import { Sparkles, MessageSquare, Send, BrainCircuit, Bot, AlertCircle, CheckCircle2 } from "lucide-react"
+import { Sparkles, Send, BrainCircuit, Bot, AlertCircle, CheckCircle2 } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
-import { cn } from "@/lib/utils"
 
 export function MedicalAiAssistant() {
     const [query, setQuery] = useState("")

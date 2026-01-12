@@ -36,7 +36,7 @@ export async function analyzeMedicalImage(imageUrl: string, specialty: string) {
     }
 }
 
-export async function processChatWithAi(message: string, patientContext: any) {
+export async function processChatWithAi(message: string, patientContext: Record<string, unknown>) {
     try {
         const response = await getDeepSeek().chat.completions.create({
             model: "deepseek-chat",
