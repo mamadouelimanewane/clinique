@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Activity, CreditCard, Users, DollarSign, Calendar } from "lucide-react"
 import { prisma } from "@/lib/prisma"
@@ -188,8 +189,8 @@ export default async function DashboardPage() {
                                         </p>
                                     </div>
                                     <div className={`ml-auto font-medium text-sm ${rdv.statut === "PLANIFIE" ? "text-blue-500" :
-                                            rdv.statut === "TERMINE" ? "text-green-500" :
-                                                rdv.statut === "ANNULE" ? "text-red-500" : "text-amber-500"
+                                        rdv.statut === "TERMINE" ? "text-green-500" :
+                                            rdv.statut === "ANNULE" ? "text-red-500" : "text-amber-500"
                                         }`}>
                                         {rdv.statut}
                                     </div>
