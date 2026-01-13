@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { signIn } from "next-auth/react"
 import { useRouter } from "next/navigation"
-import { Loader2 } from "lucide-react"
+import { Loader2, Lock, Mail, AlertCircle } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -18,8 +18,7 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert" // Assuming Alert component exists or will be generic handle
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
 const formSchema = z.object({
     email: z.string().email({
@@ -55,39 +54,49 @@ export function LoginForm() {
             })
 
             if (result?.error) {
-                setError("Email ou mot de passe incorrect.")
+                setError("Identifiants incorrects. Veuillez vérifier vos accès.")
             } else {
                 router.push("/dashboard")
                 router.refresh()
             }
         } catch (err) {
-            setError("Une erreur est survenue. Veuillez réessayer.")
+            setError("Une erreur technique est survenue. Veuillez réessayer.")
         } finally {
             setIsLoading(false)
         }
     }
 
     return (
-        <Card className="w-[350px] shadow-lg">
-            <CardHeader>
-                <CardTitle>Connexion SIGHI</CardTitle>
-                <CardDescription>
-                    Connectez-vous à votre espace personnel.
+        <Card className="border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl overflow-hidden relative group">
+            <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent pointer-events-none" />
+
+            <CardHeader className="space-y-1 pb-6">
+                <CardTitle className="text-2xl font-bold text-white tracking-tight">Espace Professionnel</CardTitle>
+                <CardDescription className="text-slate-400">
+                    Saisie sécurisée des accès cliniques
                 </CardDescription>
             </CardHeader>
+
             <CardContent>
                 <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
                         <FormField
                             control={form.control}
                             name="email"
                             render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Email</FormLabel>
+                                <FormItem className="space-y-2">
+                                    <FormLabel className="text-slate-300 font-medium ml-1">Adresse Email</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="nom@exemple.com" {...field} />
+                                        <div className="relative group/input">
+                                            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500 group-focus-within/input:text-indigo-400 transition-colors" />
+                                            <Input
+                                                placeholder="nom@clinique.sn"
+                                                {...field}
+                                                className="pl-10 bg-black/20 border-white/10 text-white placeholder:text-slate-600 focus:border-indigo-500/50 focus:ring-indigo-500/20 transition-all"
+                                            />
+                                        </div>
                                     </FormControl>
-                                    <FormMessage />
+                                    <FormMessage className="text-rose-400 text-xs" />
                                 </FormItem>
                             )}
                         />
@@ -95,32 +104,54 @@ export function LoginForm() {
                             control={form.control}
                             name="password"
                             render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Mot de passe</FormLabel>
+                                <FormItem className="space-y-2">
+                                    <FormLabel className="text-slate-300 font-medium ml-1">Mot de passe</FormLabel>
                                     <FormControl>
-                                        <Input type="password" placeholder="******" {...field} />
+                                        <div className="relative group/input">
+                                            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500 group-focus-within/input:text-indigo-400 transition-colors" />
+                                            <Input
+                                                type="password"
+                                                placeholder="••••••••"
+                                                {...field}
+                                                className="pl-10 bg-black/20 border-white/10 text-white placeholder:text-slate-600 focus:border-indigo-500/50 focus:ring-indigo-500/20 transition-all"
+                                            />
+                                        </div>
                                     </FormControl>
-                                    <FormMessage />
+                                    <FormMessage className="text-rose-400 text-xs" />
                                 </FormItem>
                             )}
                         />
+
                         {error && (
-                            <div className="text-destructive text-sm font-medium p-2 bg-destructive/10 rounded">
-                                {error}
+                            <div className="flex items-start gap-2 p-3 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-400 text-sm animate-in fade-in slide-in-from-top-2 duration-300">
+                                <AlertCircle className="h-4 w-4 mt-0.5 flex-shrink-0" />
+                                <span>{error}</span>
                             </div>
                         )}
-                        <Button type="submit" className="w-full" disabled={isLoading}>
-                            {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                            Se connecter
+
+                        <Button
+                            type="submit"
+                            className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold h-11 shadow-lg shadow-indigo-500/20 relative overflow-hidden group/btn"
+                            disabled={isLoading}
+                        >
+                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover/btn:animate-[shimmer_1.5s_infinite]" />
+                            {isLoading ? (
+                                <Loader2 className="h-5 w-5 animate-spin" />
+                            ) : (
+                                "S'authentifier"
+                            )}
                         </Button>
                     </form>
                 </Form>
             </CardContent>
-            <CardFooter className="flex justify-center flex-col gap-2">
-                <p className="text-xs text-muted-foreground text-center">
-                    Problème de connexion ? Contactez le support informatique.
+
+            <div className="p-6 pt-0 flex flex-col items-center gap-4">
+                <div className="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+                <p className="text-[10px] text-slate-500 text-center leading-relaxed">
+                    SYSTÈME DE GESTION HOSPITALIÈRE SÉCURISÉ<br />
+                    ACCÈS RÉSERVÉ AU PERSONNEL AUTORISÉ
                 </p>
-            </CardFooter>
+            </div>
         </Card>
     )
 }
