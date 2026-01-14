@@ -44,13 +44,23 @@ export default function LoginPage() {
 
                 <LoginForm />
 
-                <div className="mt-8 text-center">
+                <div className="mt-8 text-center space-y-4">
                     <Link
                         href="/"
                         className="text-sm text-slate-400 hover:text-white transition-colors duration-200 flex items-center justify-center gap-2"
                     >
                         ← Retour au site public
                     </Link>
+
+                    <form action={async () => {
+                        "use server"
+                        const { resetAdminPassword } = await import("./actions")
+                        await resetAdminPassword()
+                    }}>
+                        <button type="submit" className="text-[10px] text-red-500/50 hover:text-red-400 transition-colors uppercase tracking-widest">
+                            🆘 Reset Password
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
